@@ -1,0 +1,39 @@
+.total {
+  background-color: #0f2557;
+  color: white;
+  font-size: 1.5em;
+  border-radius: 10px 10px 0 0;
+}
+
+.total h1 {
+  text-align: right;
+}
+
+.expand {
+  background-color: #28559a;
+  color: white;
+
+  border-radius: 0 0 10px 10px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.expand:hover {
+  background-color: #173f7c;
+}
+
+.details {
+    /* background-color: #3778c2;
+    color: white; */
+}
+
+.details li {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  column-gap: 2%;
+}
+
+.details li >:last-child {
+  text-align: right;
+}

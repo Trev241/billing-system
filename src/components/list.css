@@ -1,23 +1,52 @@
 table {
   border-collapse: collapse;
-  text-align: left;
   width: 100%;
 }
 
-/* Assigning width ratios to each column */
-table th.id {
-  width: 30%;
+table * {
+  text-align: center;
 }
 
-table th.name {
-  width: 40%;
+/* Assigning width ratios to each column */
+table .id {
+  width: 20%;
+}
+
+table .name {
+  width: 35%;
 }
 
 table :is(
-th.price,
-th.qty,
-th.subtotal) {
-  width: 10%;   
+.price,
+.qty,
+.subtotal) {
+  width: 15%;   
+}
+
+/* 
+The border-radius property will not work with a collapsed border!
+This is because the td themselves will have an overriding effect.
+In order to create borders with rounded-corners, change the border-
+radius property of the cells themselves
+*/
+table th:last-child {
+  border-top-right-radius: 10px;
+}
+
+table th:first-child {
+  border-top-left-radius: 10px;
+}
+
+table tr:last-child td {
+  background-color: #28559a;
+  color: white;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+table tr:last-child td:hover {
+  background-color: #173f7c;
 }
 
 /*
@@ -25,14 +54,19 @@ It is necessary to mention the parent container's class name in order to overrid
 the padding value that was inherited from the workspace-container class
 */
 .workspace-container table tbody tr td {
-  padding: .75em;
-  
+  padding: 2em;
+
   border-style: solid;
   border-color: white;
 }
 
+table th {
+  background-color: #0f2557;
+  color: white;
+}
+
 /* Apply upper and lower borders to all rows except the first and last two */
-table tbody tr:not(:first-child):not(:nth-last-child(2)):not(:last-child) td {
+table tbody tr:not(:first-child):not(:nth-last-child(2)) td {
   border-width: .15em 0 .15em 0;     
 }
 
@@ -41,55 +75,74 @@ table tbody tr:first-child td {
   border-width: 0 0 .15em 0;     
 }
 
-/* Apply only upper border to second-to-last child */
+/* Apply only upper border to second to last child child */
 table tbody tr:nth-last-child(2) td {
-  border-width: .15em 0 0 0;
+  border-width: 0 0 0 0;     
 }
 
-table tbody tr>:last-child {
+/* Apply no border for last row */
+.workspace-container table tbody tr:last-child td {
+  border-width: 0 0 0 0;
+}
+
+/* Apply only upper border to second-to-last child */
+/* table tbody tr:nth-last-child(2) td {
+  border-width: .15em 0 0 0;
+} */
+
+table tbody tr:not(:last-child) >:last-child {
   text-align: right;
 }
 
 .workspace-container table th {
-  border-style: solid;
+  /* border-style: solid;
   border-width: 0 0 .1em 0;
-  border-color: rgb(150, 150, 150);
+  border-color: rgb(150, 150, 150); */
 
   padding: .75em;
   font-size: large;
 }
 
-.workspace-container table tbody tr:last-child * {
+/* .workspace-container table tbody tr:last-child * {
   border-style: solid;
   border-width: 0.1em 0 0 0;
   border-color: rgb(150, 150, 150);
   
   font-size: large;
   font-weight: bold;
-}
+} */
 
 table th:last-child {
   text-align: right;
 }
 
-table tbody :is(
+/* table tbody :is(
 tr:not(:last-child):hover,
 tr:not(:last-child):active,
-tr.selected) {
+tr.selected,) {
   border-style: solid;
   border-width: 0 .1em 0 .1em;
+} */
+
+table tbody tr:not(:last-child):hover * {
+  background-color: rgba(224, 255, 255);
 }
 
-table tbody tr:not(:last-child):hover {
-  background-color: rgb(240, 240, 240);
+table tbody tr.selected * {
+  /* font-weight: bold; */
+  /* font-size: 1.15em; */
+  background-color: rgba(176, 250, 255);
 }
 
-table tbody tr.selected {
-  font-weight: bold;
-  font-size: 1.15em;
-  background-color: lightgray;
-}
-
-table tbody tr:not(:last-child):active {
+/* table tbody tr:active {
   opacity: .5;
+} */
+
+.workspace-container
+table :is(input, input:focus) {
+  width: 90%;
+  padding: 0px;
+  outline: none;
+
+  border-width: 0 0 .1em 0;
 }

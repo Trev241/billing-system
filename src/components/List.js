@@ -12,39 +12,51 @@ class List extends React.Component {
         }
 
         this.handleSelected = this.handleSelected.bind(this)
+        this.handleAddItem = this.handleAddItem.bind(this)
+        this.handleInput = this.handleInput.bind(this)
+    }
+
+    handleAddItem() {
+        this.props.addItem()
     }
 
     handleSelected(e, item, i) {
         this.props.setSelectedItem(item, i)
     }
 
+    handleInput(e, field) {
+        this.props.updateSelectedItem(field, e.target.value)
+    }
+
     render () {
-        const rows = [], empty = this.props.items.length === 0
-        let total = 0
+        const rows = []//, empty = this.props.items.length === 0
+        // let total = 0
         
         for (let i = 0; i < this.props.items.length; i++) { 
             const item = this.props.items[i];
             const subtotal = item.price * item.qty
-            total += subtotal
+            // total += subtotal
 
             rows.push(
-                // TODO: Change key for tr since more than one item can contain the same ID
-                <tr className={this.props.selectedIndex === i ? "selected" : ""} onClick={(e) => this.handleSelected(e, item, i)} key={item.id}>
+                // TODO: Change key for tr once rows can be reordered
+                <tr className={this.props.selectedIndex === i ? "selected" : ""} onClick={(e) => this.handleSelected(e, item, i)} key={i}>
                     {Object.keys(item).map( 
-                        prop => <td key={prop}>{item[prop]}</td>
+                        prop => (
+                            <td key={prop}><input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, prop)} /></td>
+                        )
                     )}
                     <td>{subtotal}</td>
                 </tr>
             )
         }
 
-        if (!empty) 
-            rows.push(
-                <tr key="last-row">
-                    <td colSpan="4">FINAL TOTAL</td>
-                    <td>{total}</td>
-                </tr>
-            )
+        // if (!empty) 
+        //     rows.push(
+        //         <tr key="last-row">
+        //             <td colSpan="4">FINAL TOTAL</td>
+        //             <td>{total}</td>
+        //         </tr>
+        //     )
 
         return (
             <div>
@@ -63,13 +75,11 @@ class List extends React.Component {
                     </thead>
                     <tbody>
                         {rows}
+                        <tr key="add">
+                            <td colSpan={5} onClick={this.handleAddItem}>Add Item</td>
+                        </tr>
                     </tbody>
                 </table>
-                {
-                    empty 
-                    ? <div className="centered-label"><i>No items have been added yet. Start billing by adding a new item.</i></div> 
-                    : <></>
-                }
             </div>
         ) 
     }

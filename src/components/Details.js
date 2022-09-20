@@ -10,9 +10,7 @@ class Details extends React.Component {
     }
 
     handleEdit(e, field) {
-        let item = this.props.item
-        item[field] = e.target.value
-        this.props.updateSelectedItem(item)
+        this.props.updateSelectedItem(field, e.target.value)
     }
 
     render() {

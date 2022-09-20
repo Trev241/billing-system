@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewItem from "./NewItem"
+// import NewItem from "./NewItem"
 import List from "./List"
 import Details from "./Details"
 import Summary from "./Summary"
@@ -29,14 +29,19 @@ class Workspace extends React.Component {
         this.updateTotals = this.updateTotals.bind(this)
     }
 
-    addItem(item) {
-        // Update item in list
-        this.setSelectedItem(item)
-        this.setState(prevState => ({items: [...prevState.items, item]}), 
+    addItem() {
+        // // Update item in list
+        // this.setSelectedItem(item)
+        // this.setState(prevState => ({items: [...prevState.items, item]}), 
+        //     () => {
+        //         // Calling multiple functions in a single callback
+        //         this.updateTotals()
+        //         this.setSelectedItem(item, this.state.items.length - 1)
+        //     }
+        // )
+        this.setState(prevState => ({items: [...prevState.items, {id: '', name: '', price: '', qty: ''}]}),
             () => {
-                // Calling multiple functions in a single callback
                 this.updateTotals()
-                this.setSelectedItem(item, this.state.items.length - 1)
             }
         )
     }
@@ -49,9 +54,10 @@ class Workspace extends React.Component {
         })
     }
 
-    updateSelectedItem(newItem) {
+    updateSelectedItem(field, value) {
         let newItemsList = this.state.items
-        newItemsList[this.state.selectedIndex] = newItem
+        // Assign the new value to the designated field
+        newItemsList[this.state.selectedIndex][field] = value
         this.setState({items: newItemsList}, this.updateTotals)
     }
 
@@ -68,15 +74,21 @@ class Workspace extends React.Component {
             <div>
                 <div className="workspace-container workspace-grid">
                     <div>
-                        <fieldset className="rounded-border">
-                            <legend><h1>INVOICE</h1></legend>
-                            <NewItem addItem={this.addItem} />
-                            <List items={this.state.items} selectedIndex={this.state.selectedIndex} setSelectedItem={this.setSelectedItem} />
-                        </fieldset>
+                        {/* <fieldset className="rounded-border">
+                            <legend><h1>INVOICE</h1></legend> */}
+                            {/* <NewItem addItem={this.addItem} /> */}
+                            <List 
+                                items={this.state.items} 
+                                addItem={this.addItem} 
+                                updateSelectedItem={this.updateSelectedItem} 
+                                selectedIndex={this.state.selectedIndex} 
+                                setSelectedItem={this.setSelectedItem} 
+                            />
+                        {/* </fieldset> */}
                     </div>
                     <div>
                         <Summary total={this.state.total} tax={0} discount={0} />
-                        <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} />
+                        {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
                     </div>
                 </div>
             </div>
