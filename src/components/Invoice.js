@@ -2,9 +2,9 @@ import React from 'react'
 
 import './index.css'
 
-import Header from './components/Header'
-import Workspace from './components/Workspace'
-import Footer from './components/Footer'
+import Header from './Header'
+import Workspace from './Workspace'
+import Footer from './Footer'
 
 class Invoice extends React.Component {
     render() {

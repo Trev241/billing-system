@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-env = {
+const env = {
     host: "remotemysql.com",
     user: "reFGnomQii",
     password: "A4cDfRkCCI",

@@ -2,6 +2,8 @@ import React from "react";
 
 import "./list.css"
 
+// import { select } from './../config/db'
+
 class List extends React.Component {
     constructor(props) {
         super(props)

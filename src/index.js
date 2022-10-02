@@ -6,10 +6,10 @@ import {
     // Route,
   } from "react-router-dom";
 
-import './index.css'
+// import './index.css'
 
 import Home from './components/Home';
-import Invoice from './Invoice'
+import Invoice from './components/Invoice'
 import ErrorPage from './components/ErrorPage';
 
 const router = createBrowserRouter([

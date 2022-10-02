@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import './header.css'
 
@@ -9,7 +10,7 @@ class Header extends React.Component {
                 <h1>BILLING SYSTEM</h1>
                 <div>
                     <ul>
-                        <li>HOME</li>
+                        <li><Link to="/">HOME</Link></li>
                         <li>SIGN IN</li>
                         <li>HELP</li>
                     </ul>
