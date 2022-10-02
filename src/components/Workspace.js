@@ -71,7 +71,7 @@ class Workspace extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <div className="workspace-container workspace-grid">
                     <div>
                         {/* <fieldset className="rounded-border">
@@ -91,7 +91,7 @@ class Workspace extends React.Component {
                         {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
                     </div>
                 </div>
-            </div>
+            </>
         )
     }
 }

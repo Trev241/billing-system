@@ -1,0 +1,30 @@
+.header {
+  height: 75px; /* setting banner height */
+  
+  background-color: #010737;
+  color: white;
+    
+  padding-left: 20px;
+  margin: 0;
+  
+  /* Center the contents of the banner along the horizontal axis */
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+}
+
+.header h1 {
+  display: flex;
+  align-items: center;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.header ul > li {
+  display: inline-block;
+  align-items: center;
+  padding: 25px;
+}

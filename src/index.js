@@ -1,23 +1,40 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import {
+    createBrowserRouter,
+    RouterProvider,
+    // Route,
+  } from "react-router-dom";
+
 import './index.css'
 
-import Workspace from './components/Workspace'
+import Home from './components/Home';
+import Invoice from './Invoice'
+import ErrorPage from './components/ErrorPage';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div className='root-container'>
-                <div className='banner'>
-                    <h2 className='header'>BILLING SYSTEM</h2>
-                </div>
-                <Workspace />
-            </div>
-        )
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Home />,
+        errorElement: <ErrorPage />,
+        // children: [
+        //     {
+        //         path: "/create-invoice",
+        //         element: <Invoice />,
+        //     }
+        // ]
+    },
+    {
+        path: "/create-invoice",
+        element: <Invoice />,
+        errorElement: <ErrorPage />
     }
-}
+])
 
 // ========================================
   
-const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(<App />)
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+)

@@ -1,5 +1,5 @@
 .total {
-  background-color: #0f2557;
+  background-color: #050e53;
   color: white;
   font-size: 1.5em;
   border-radius: 10px 10px 0 0;
@@ -10,7 +10,7 @@
 }
 
 .expand {
-  background-color: #28559a;
+  background-color: #173f7c;
   color: white;
 
   border-radius: 0 0 10px 10px;
@@ -20,12 +20,12 @@
 }
 
 .expand:hover {
-  background-color: #173f7c;
+  background-color: #2e60a9;
 }
 
 .details {
-    /* background-color: #3778c2;
-    color: white; */
+  background-color: white;
+  color: black;
 }
 
 .details li {

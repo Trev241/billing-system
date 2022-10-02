@@ -8,7 +8,7 @@ class Summary extends React.Component {
         
         this.state = {
             amountPaid: 0,
-            expanded: false,
+            expanded: true,
         }
 
         this.handleAmountInput = this.handleAmountInput.bind(this)
@@ -29,7 +29,7 @@ class Summary extends React.Component {
         const change = this.state.amountPaid - total
 
         return (
-            <div>
+            <>
                 <div className="total">
                     <div>Balance due</div>
                     <h1>{total}</h1>
@@ -70,8 +70,8 @@ class Summary extends React.Component {
                     </ul>
                     : ""
                 }
-                <div className="expand" onClick={this.handleExpand}><div>{this.state.expanded ? "Hide" : "Show"} details</div></div>
-            </div>
+                <div className="expand noselect" onClick={this.handleExpand}><div>{this.state.expanded ? "Hide" : "Show"} details</div></div>
+            </>
         )
     }
 }

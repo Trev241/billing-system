@@ -38,7 +38,7 @@ table th:first-child {
 }
 
 table tr:last-child td {
-  background-color: #28559a;
+  background-color: #173f7c;
   color: white;
 
   border-bottom-left-radius: 10px;
@@ -46,7 +46,7 @@ table tr:last-child td {
 }
 
 table tr:last-child td:hover {
-  background-color: #173f7c;
+  background-color: #2e60a9;
 }
 
 /*
@@ -61,12 +61,12 @@ the padding value that was inherited from the workspace-container class
 }
 
 table th {
-  background-color: #0f2557;
+  background-color: #050e53;
   color: white;
 }
 
 /* Apply upper and lower borders to all rows except the first and last two */
-table tbody tr:not(:first-child):not(:nth-last-child(2)) td {
+table tbody tr:not(:first-child):not(:nth-last-child(2)):not(:last-child) td {
   border-width: .15em 0 .15em 0;     
 }
 
@@ -131,7 +131,7 @@ table tbody tr:not(:last-child):hover * {
 table tbody tr.selected * {
   /* font-weight: bold; */
   /* font-size: 1.15em; */
-  background-color: rgba(176, 250, 255);
+  /* background-color: rgba(176, 250, 255); */
 }
 
 /* table tbody tr:active {

@@ -59,7 +59,7 @@ class List extends React.Component {
         //     )
 
         return (
-            <div>
+            <>
                 <table>
                     <thead>
                         <tr>
@@ -76,11 +76,11 @@ class List extends React.Component {
                     <tbody>
                         {rows}
                         <tr key="add">
-                            <td colSpan={5} onClick={this.handleAddItem}>Add Item</td>
+                            <td className="noselect" colSpan={5} onClick={this.handleAddItem}>Add Item</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </>
         ) 
     }
 }
