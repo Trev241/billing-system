@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/billing-system/static/css/main.f92a723e.css",
+    "main.js": "/billing-system/static/js/main.17727905.js",
+    "index.html": "/billing-system/index.html",
+    "main.f92a723e.css.map": "/billing-system/static/css/main.f92a723e.css.map",
+    "main.17727905.js.map": "/billing-system/static/js/main.17727905.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f92a723e.css",
+    "static/js/main.17727905.js"
+  ]
+}
