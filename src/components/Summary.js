@@ -30,47 +30,52 @@ class Summary extends React.Component {
 
         return (
             <>
-                <div className="total">
-                    <div>Balance due</div>
-                    <h1>{total}</h1>
+                <div>
+                    <div className="total">
+                        <div>Balance due</div>
+                        <h1>{total}</h1>
+                    </div>
+                    {
+                        this.state.expanded ?
+                        <ul className="details">
+                            <li>
+                                <label>Gross Total</label>
+                                <b>{total}</b>
+                            </li>
+                            <li>
+                                <label>+ Tax</label>
+                                <b>{tax}</b>
+                            </li>
+                            <li>
+                                <label>- Discount</label>
+                                <b>{discount}</b>
+                            </li>
+                            <li>
+                                <label><b>NET BALANCE</b></label>
+                                <b>{balance}</b>
+                            </li>
+                            <li>
+                                <label>Amount Paid</label>
+                                <input value={this.state.amountPaid} onChange={this.handleAmountInput} />
+                            </li>
+                            <li>
+                                <label>Return Change</label>
+                                <b>
+                                    {
+                                        change < 0
+                                        ? "Amound paid is insufficient!"
+                                        : change
+                                    }
+                                </b>
+                            </li>
+                        </ul>
+                        : ""
+                    }
+                    <div className="expand noselect" onClick={this.handleExpand}><div>{this.state.expanded ? "Hide" : "Show"} details</div></div>
                 </div>
-                {
-                    this.state.expanded ?
-                    <ul className="details">
-                        <li>
-                            <label>Gross Total</label>
-                            <b>{total}</b>
-                        </li>
-                        <li>
-                            <label>+ Tax</label>
-                            <b>{tax}</b>
-                        </li>
-                        <li>
-                            <label>- Discount</label>
-                            <b>{discount}</b>
-                        </li>
-                        <li>
-                            <label><b>NET BALANCE</b></label>
-                            <b>{balance}</b>
-                        </li>
-                        <li>
-                            <label>Amount Paid</label>
-                            <input value={this.state.amountPaid} onChange={this.handleAmountInput} />
-                        </li>
-                        <li>
-                            <label>Return Change</label>
-                            <b>
-                                {
-                                    change < 0
-                                    ? "Amound paid is insufficient!"
-                                    : change
-                                }
-                            </b>
-                        </li>
-                    </ul>
-                    : ""
-                }
-                <div className="expand noselect" onClick={this.handleExpand}><div>{this.state.expanded ? "Hide" : "Show"} details</div></div>
+                <div className="checkout">
+                    <input type="button" value="CHECKOUT" onClick={this.props.handleCheckout} />
+                </div>
             </>
         )
     }

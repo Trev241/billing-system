@@ -3,6 +3,7 @@ import React from "react";
 // import NewItem from "./NewItem"
 import List from "./List"
 import Summary from "./Summary"
+import TransactionService from "./../services/transaction.service"
 
 class Workspace extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class Workspace extends React.Component {
         this.setSelectedItem = this.setSelectedItem.bind(this)
         this.updateSelectedItem = this.updateSelectedItem.bind(this)
         this.updateTotals = this.updateTotals.bind(this)
+        this.handleCheckout = this.handleCheckout.bind(this)
     }
 
     addItem() {
@@ -72,6 +74,19 @@ class Workspace extends React.Component {
         this.setState({total: total})
     }
 
+    handleCheckout() {
+        TransactionService.create({
+            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            balance: this.state.total,
+        }).then(
+            response => {
+                alert('Transaction recorded')
+            }
+        ).catch(
+            e => console.log(e)
+        )
+    }
+
     render() {
         return (
             <>
@@ -90,7 +105,7 @@ class Workspace extends React.Component {
                         {/* </fieldset> */}
                     </div>
                     <div>
-                        <Summary total={this.state.total} tax={0} discount={0} />
+                        <Summary total={this.state.total} tax={0} discount={0} handleCheckout={this.handleCheckout} />
                         {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
                     </div>
                 </div>

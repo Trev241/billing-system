@@ -12,22 +12,22 @@ const Product = function(product) {
 Product.create = (newProduct, result) => {
     sql.query("INSERT INTO Product SET ?", newProduct, (err, res) => {
         if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
+            console.log("error: ", err)
+            result(err, null)
+            return
         }
 
-        console.log("Created product: ", { id: res.insertId, ...newProduct });
-        result(null, { id: res.insertId, ...newProduct });
-    });
-};
+        console.log("Created product: ", { id: res.insertId, ...newProduct })
+        result(null, { id: res.insertId, ...newProduct })
+    })
+}
 
 Product.findById = (id, result) => {
     sql.query(`SELECT * FROM Product WHERE product_id = ${id}`, (err, res) => {
         if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
+            console.log("error: ", err)
+            result(err, null)
+            return
         }
 
         if (res.length) {
@@ -37,8 +37,8 @@ Product.findById = (id, result) => {
         }
 
         // not found Tutorial with the id
-        result({ kind: "not_found" }, null);
-    });
+        result({ kind: "not_found" }, null)
+    })
 };
 
 // Tutorial.getAll = (title, result) => {

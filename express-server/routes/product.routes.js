@@ -7,4 +7,4 @@ module.exports = app => {
     router.get("/:id", products.findOne);
   
     app.use('/api/products', router);
-  };
+}
