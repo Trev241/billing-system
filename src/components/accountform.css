@@ -5,14 +5,15 @@
     justify-content: center;
 
     /* width:50%; */
-    height: calc(100% - 25% - 75px);
+    height: calc(100% - 75px);
+    min-height: 500px;
     
     margin: auto;
     background-color: white;
     border-radius: 3px;
 }
 
-h1{
+h1 {
   text-align: center;
   /* padding-top: 15px; */
 }
@@ -29,6 +30,7 @@ form {
 form label{
     display: flex;
     padding: 10px 0 10px 0;
+    height: 25px;
 
     /* margin-top: 10px; */
     font-size: 18px;
@@ -44,7 +46,7 @@ form input{
     outline: none;
 }
 
-.submit-button{
+.submit-button {
     width: 300px;
     margin: 20px 0 10px 0;
     padding: 10px 0 10px 0;
@@ -70,7 +72,11 @@ p {
     text-align: center;
     color: black;
     font-size: 15px;
-    margin-top: 10px;
+    padding: 20px 0 10px 0;
+}
+
+.error-message {
+    color: red;
 }
 
 p a {

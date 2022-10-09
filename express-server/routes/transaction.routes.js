@@ -6,4 +6,4 @@ module.exports = app => {
     router.post('/', transactions.create)
   
     app.use('/api/transactions', router);
-  };
+}

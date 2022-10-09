@@ -2,7 +2,7 @@ import http from "../http-common";
 
 class TransactionService {
     create(data) {
-        return http.post("/transactions", data);
+        return http.post("/api/transactions", data);
     }
 }
 

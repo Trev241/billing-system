@@ -4,8 +4,6 @@ import "./list.css"
 
 import ProductService from "../services/product.service";
 
-// import { select } from './../config/db'
-
 class List extends React.Component {
     constructor(props) {
         super(props)
@@ -28,15 +26,15 @@ class List extends React.Component {
         this.props.setSelectedItem(item, i)
     }
 
-    handleInput(e, field, i) {
-        this.props.updateSelectedItem(field, e.target.value)
+    handleInput(e, i, field) {
+        this.props.updateSelectedItem(i, field, e.target.value)
 
         if (field === 'id') {
             ProductService.get(e.target.value).then(
                 response => {
                     console.log(response)
-                    this.props.updateSelectedItem('name', response.data.name)
-                    this.props.updateSelectedItem('price', response.data.rate)
+                    this.props.updateSelectedItem(i, 'name', response.data.name)
+                    this.props.updateSelectedItem(i, 'price', response.data.rate)
                 }
             ).catch(
                 e => console.log(e)
@@ -51,14 +49,13 @@ class List extends React.Component {
         for (let i = 0; i < this.props.items.length; i++) { 
             const item = this.props.items[i];
             const subtotal = item.price * item.qty
-            // total += subtotal
 
             rows.push(
                 // TODO: Change key for tr once rows can be reordered
                 <tr className={this.props.selectedIndex === i ? "selected" : ""} onClick={(e) => this.handleSelected(e, item, i)} key={i}>
                     {Object.keys(item).map( 
                         prop => (
-                            <td key={prop}><input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, prop, i)} /></td>
+                            <td key={prop}><input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} /></td>
                         )
                     )}
                     <td>{subtotal}</td>
