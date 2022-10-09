@@ -8,9 +8,11 @@ import {
 
 // import './index.css'
 
-import Home from './components/Home';
-import Invoice from './components/Invoice'
-import ErrorPage from './components/ErrorPage';
+import Home from './components/Home'
+import ErrorPage from './components/ErrorPage'
+import Login from './components/Login'
+import Signup from './components/Signup';
+import Workspace from './components/Workspace';
 
 const router = createBrowserRouter([
     {
@@ -26,7 +28,17 @@ const router = createBrowserRouter([
     },
     {
         path: "/create-invoice",
-        element: <Invoice />,
+        element: <Workspace />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/signin",
+        element: <Login />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/signup",
+        element: <Signup />,
         errorElement: <ErrorPage />
     }
 ])

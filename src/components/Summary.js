@@ -74,7 +74,7 @@ class Summary extends React.Component {
                     <div className="expand noselect" onClick={this.handleExpand}><div>{this.state.expanded ? "Hide" : "Show"} details</div></div>
                 </div>
                 <div className="checkout">
-                    <input type="button" value="CHECKOUT" onClick={this.props.handleCheckout} />
+                    <input type="button" value="CHECKOUT" disabled={this.state.amountPaid < balance} onClick={this.props.handleCheckout} />
                 </div>
             </>
         )

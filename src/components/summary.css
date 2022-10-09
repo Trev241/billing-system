@@ -51,3 +51,7 @@
 .checkout input:hover {
   background-color: #2aa87c;
 }
+
+.checkout input:disabled {
+  background-color: gray;
+}

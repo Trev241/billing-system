@@ -4,6 +4,9 @@ import React from "react";
 import List from "./List"
 import Summary from "./Summary"
 import TransactionService from "./../services/transaction.service"
+import DefaultLayout from "./DefaultLayout";
+
+import "./workspace.css"
 
 class Workspace extends React.Component {
     constructor(props) {
@@ -89,7 +92,7 @@ class Workspace extends React.Component {
 
     render() {
         return (
-            <>
+            <DefaultLayout>
                 <div className="workspace-container workspace-grid">
                     <div>
                         {/* <fieldset className="rounded-border">
@@ -109,7 +112,7 @@ class Workspace extends React.Component {
                         {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
                     </div>
                 </div>
-            </>
+            </DefaultLayout>
         )
     }
 }

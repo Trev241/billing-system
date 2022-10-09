@@ -1,27 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 import "./accountform.css"
 import DefaultLayout from "./DefaultLayout";
 
-class Login extends React.Component {
+class Signup extends React.Component {
     render() {
         return (
             <DefaultLayout>
                 <div className="info">
-                    {/* <h1>Welcome!</h1> */}
                     <form>
+                        <label>Username</label>
+                        <input type="text" placeholder="" />
                         <label>Email</label>
                         <input type="email" placeholder="" />
                         <label>Password</label>
                         <input type="password" placeholder="" />
-                        <button className="submit-button">Sign in</button>
+                        <label>Confirm Password</label>
+                        <input type="password" placeholder="" />
+                        <button className="submit-button">Register</button>
                     </form>
-                    <p>Not yet registered? <Link to="/signup">Sign up</Link></p>
+                    <p>Already have an account? <Link to="/signin">Login</Link></p>
                 </div>
             </DefaultLayout>
         )
     }
 }
 
-export default Login
+export default Signup
