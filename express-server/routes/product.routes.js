@@ -4,7 +4,8 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Retrieve a single Product with id
-    router.get("/:id", products.findOne);
+    router.get("/id/:id", products.findOne);
+    router.get("/name/:name", products.findMany);
   
     app.use('/api/products', router);
 }

@@ -22,6 +22,24 @@ Product.create = (newProduct, result) => {
     })
 }
 
+Product.findAllStartingWith = (name, result) => {
+    sql.query(`SELECT * FROM Product WHERE name LIKE '${name}%'`, (err, res) => {
+        if (err) {
+            console.log("error: ", err)
+            result(err, null)
+            return
+        }
+
+        if (res.length) {
+            console.log("Found product(s): ", res[0]);
+            result(null, res);
+            return;
+        }
+
+        result({ kind: "not_found" }, null)
+    })
+}
+
 Product.findById = (id, result) => {
     sql.query(`SELECT * FROM Product WHERE product_id = ${id}`, (err, res) => {
         if (err) {
@@ -36,10 +54,9 @@ Product.findById = (id, result) => {
             return;
         }
 
-        // not found Tutorial with the id
         result({ kind: "not_found" }, null)
     })
-};
+}
 
 // Tutorial.getAll = (title, result) => {
 //   let query = "SELECT * FROM tutorials";

@@ -11,6 +11,7 @@ class List extends React.Component {
         this.state = {
             // Select first item in the list by default if it exists
             selectedItem: (props.items.length > 0) ? props.items[0] : '',
+            options: []
         }
 
         this.handleSelected = this.handleSelected.bind(this)
@@ -29,12 +30,20 @@ class List extends React.Component {
     handleInput(e, i, field) {
         this.props.updateSelectedItem(i, field, e.target.value)
 
-        if (field === 'id') {
+        if (field === "id") {
             ProductService.get(e.target.value).then(
                 response => {
-                    console.log(response)
-                    this.props.updateSelectedItem(i, 'name', response.data.name)
-                    this.props.updateSelectedItem(i, 'price', response.data.rate)
+                    this.props.updateSelectedItem(i, "name", response.data.name)
+                    this.props.updateSelectedItem(i, "price", response.data.rate)
+                }
+            ).catch(
+                e => console.log(e)
+            )
+        } else if (field === "name") {
+            ProductService.getByName(e.target.value).then(
+                response => {
+                    this.setState({options: [...response.data]})
+                    console.log(this.state.options)
                 }
             ).catch(
                 e => console.log(e)
@@ -55,7 +64,17 @@ class List extends React.Component {
                 <tr className={this.props.selectedIndex === i ? "selected" : ""} onClick={(e) => this.handleSelected(e, item, i)} key={i}>
                     {Object.keys(item).map( 
                         prop => (
-                            <td key={prop}><input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} /></td>
+                            <td key={prop}>
+                            {
+                                (prop === "name") 
+                                ? <>
+                                <input list="names" name="name" value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
+                                <datalist id="names">
+                                    {this.state.options.map(option => <option key={option} value={option} />)}
+                                </datalist></>
+                                : <input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
+                            }
+                            </td>
                         )
                     )}
                     <td>{subtotal}</td>
