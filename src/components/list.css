@@ -1,5 +1,6 @@
 table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
 }
 
@@ -37,14 +38,6 @@ table th:first-child {
   border-top-left-radius: 10px;
 }
 
-table tr:last-child td {
-  background-color: #173f7c;
-  color: white;
-
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
 table tr:last-child td:hover {
   background-color: #2e60a9;
 }
@@ -53,11 +46,13 @@ table tr:last-child td:hover {
 It is necessary to mention the parent container's class name in order to override
 the padding value that was inherited from the workspace-container class
 */
-.workspace-container table tbody tr td {
+.workspace-container table tbody tr td,
+.workspace-container table thead tr th {
   padding: 2em;
-
-  border-style: solid;
-  border-color: white;
+  
+  border: 0 solid #050e53;
+  /* border-style: solid;
+  border-color: black; */
 }
 
 table th {
@@ -65,40 +60,28 @@ table th {
   color: white;
 }
 
-/* Apply upper and lower borders to all rows except the first and last two */
-table tbody tr:not(:first-child):not(:nth-last-child(2)):not(:last-child) td {
-  border-width: .15em 0 .15em 0;     
+table tr:not(:last-child) td:first-child {
+  border-width: 0 0 0 2px;
 }
 
-/* Apply only lower border to first child */
-table tbody tr:first-child td {
-  border-width: 0 0 .15em 0;     
+table tr:not(:last-child) td:last-child {
+  border-width: 0 2px 0 0;
 }
 
-/* Apply only upper border to second to last child child */
-table tbody tr:nth-last-child(2) td {
-  border-width: 0 0 0 0;     
-}
+table tr:last-child td {
+  border: 2px solid #173f7c;
+  border-width: 0 2px 2px 2px;
+  border-radius: 0 0 10px 10px;
 
-/* Apply no border for last row */
-.workspace-container table tbody tr:last-child td {
-  border-width: 0 0 0 0;
+  background-color: #173f7c;
+  color: white;
 }
-
-/* Apply only upper border to second-to-last child */
-/* table tbody tr:nth-last-child(2) td {
-  border-width: .15em 0 0 0;
-} */
 
 table tbody tr:not(:last-child) >:last-child {
   text-align: right;
 }
 
 .workspace-container table th {
-  /* border-style: solid;
-  border-width: 0 0 .1em 0;
-  border-color: rgb(150, 150, 150); */
-
   padding: .75em;
   font-size: large;
 }
@@ -125,13 +108,7 @@ tr.selected,) {
 } */
 
 table tbody tr:not(:last-child):hover * {
-  background-color: rgba(224, 255, 255);
-}
-
-table tbody tr.selected * {
-  /* font-weight: bold; */
-  /* font-size: 1.15em; */
-  /* background-color: rgba(176, 250, 255); */
+  background-color: #e0ffff;
 }
 
 /* table tbody tr:active {

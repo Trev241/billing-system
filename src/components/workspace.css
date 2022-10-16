@@ -89,14 +89,38 @@ body {
   text-align: center;
 }
 
-/* 
-NewItem CSS 
-TODO: Refactor into its own file
-*/
+div.std-container div.head {
+  background-color: #050e53;
+  color: white;
+  font-size: 1.5em;
+  border-radius: 10px 10px 0 0;
+}
+
+div.std-container div.body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 15px;
+
+  padding: 15px;
+
+  border: 2px solid #010737;
+  border-radius: 0 0 10px 10px;
+}
+
+.basic-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 15px;
+
+  padding: 15px;
+
+  border: 2px solid #010737;
+  border-radius: 0 0 10px 10px;
+}
 
 .rounded-border {
   border-style: solid;
-  border-color: rgb(150, 150, 150);
+  border-color: #969696;
   border-width: 2px;
   border-radius: 10px;
 }
@@ -106,3 +130,4 @@ TODO: Refactor into its own file
   grid-template-columns: 2fr 3fr 7fr 2fr 1fr;
   column-gap: 2%;
 }
+

@@ -3,6 +3,7 @@ const sql = require("./db.js")
 // constructor
 const Transaction = function(transaction) {
     this.date = transaction.date
+    this.customer_pno = transaction.customer_pno
     this.balance = transaction.balance
 }
 

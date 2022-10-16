@@ -1,11 +1,6 @@
-.total {
-  background-color: #050e53;
-  color: white;
-  font-size: 1.5em;
-  border-radius: 10px 10px 0 0;
-}
-
-.total h1 {
+div.std-container div.head h1,
+div.std-container div.body b,
+div.std-container div.body input {
   text-align: right;
 }
 
@@ -21,21 +16,6 @@
 
 .expand:hover {
   background-color: #2e60a9;
-}
-
-.details {
-  background-color: white;
-  color: black;
-}
-
-.details li {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  column-gap: 2%;
-}
-
-.details li >:last-child {
-  text-align: right;
 }
 
 .checkout input {

@@ -37,13 +37,28 @@ class List extends React.Component {
                     this.props.updateSelectedItem(i, "price", response.data.rate)
                 }
             ).catch(
-                e => console.log(e)
+                e => {
+                    console.log(e)
+                    
+                    this.props.updateSelectedItem(i, "name", '')
+                    this.props.updateSelectedItem(i, "price", '')
+                }
             )
         } else if (field === "name") {
+            // Fetch products beginning with the name entered
             ProductService.getByName(e.target.value).then(
                 response => {
                     this.setState({options: [...response.data]})
                     console.log(this.state.options)
+
+                    // Autofill details if exact name is given
+                    if (e.target.value === response.data[0].name) {
+                        this.props.updateSelectedItem(i, "id", response.data[0].product_id)
+                        this.props.updateSelectedItem(i, "price", response.data[0].rate)
+                    } else {
+                        this.props.updateSelectedItem(i, "id", '')
+                        this.props.updateSelectedItem(i, "price", '')
+                    }
                 }
             ).catch(
                 e => console.log(e)
@@ -70,7 +85,7 @@ class List extends React.Component {
                                 ? <>
                                 <input list="names" name="name" value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
                                 <datalist id="names">
-                                    {this.state.options.map(option => <option key={option} value={option} />)}
+                                    {this.state.options.map(option => <option key={option} value={option.name} />)}
                                 </datalist></>
                                 : <input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
                             }
@@ -81,14 +96,6 @@ class List extends React.Component {
                 </tr>
             )
         }
-
-        // if (!empty) 
-        //     rows.push(
-        //         <tr key="last-row">
-        //             <td colSpan="4">FINAL TOTAL</td>
-        //             <td>{total}</td>
-        //         </tr>
-        //     )
 
         return (
             <>

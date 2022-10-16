@@ -8,6 +8,7 @@ import DefaultLayout from "./DefaultLayout";
 
 import "./workspace.css"
 import { useNavigate } from "react-router-dom";
+import CustomerService from "../services/customer.service";
 
 function Workspace() {
     const [items, setItems] = useState([])
@@ -16,6 +17,13 @@ function Workspace() {
     const [discount, setDiscount] = useState(0)
     const [selectedItem, setSelectedItem] = useState(null)
     const [selectedIndex, setSelectedIndex] = useState(null)
+
+    const [phone, setPhone] = useState('')
+    const [name, setName] = useState('')
+    const inputFields = {
+        'phone': setPhone,
+        'name': setName,
+    }
 
     const navigate = useNavigate()
 
@@ -31,23 +39,6 @@ function Workspace() {
     // this.handleCheckout = this.handleCheckout.bind(this)
 
     const addItem = () => {
-        // // Update item in list
-        // this.setSelectedItem(item)
-        // this.setState(prevState => ({items: [...prevState.items, item]}), 
-        //     () => {
-        //         // Calling multiple functions in a single callback
-        //         this.updateTotals()
-        //         this.setSelectedItem(item, this.state.items.length - 1)
-        //     }
-        // )
-
-        // this.setState(prevState => ({items: [...prevState.items, {id: '', name: '', price: '', qty: ''}]}),
-        //     () => {
-        //         this.updateTotals()
-        //     }
-        // )
-
-        // setItems(prevState => ({items: [...prevState.items, {id: '', name: '', price: '', qty: ''}]}))
         let newItems = items
         newItems = [...items, {id: '', name: '', price: '', qty: ''}]
         setItems(newItems)
@@ -56,19 +47,11 @@ function Workspace() {
     }
 
     const select = (item, i) => {
-        // this.setState({
-        //     selectedItem: item,
-        //     selectedIndex: i
-        // })
-        
-        // Set the selected item along with its index (useful for knowing which item is to be updated)
         setSelectedItem(item)
         setSelectedIndex(i)
     }
 
     const updateSelectedItem = (i, field, value) => {
-        // console.log(i + " " + field + " " + value)
-
         // This former approach was bad, do not directly mutate state. Always make a copy of it
         // let newItemsList = items 
         let newItemsList = [...items]
@@ -77,10 +60,6 @@ function Workspace() {
         setItems(newItemsList)
 
         updateTotals()
-        
-        // let newItemsList = this.state.items
-        // newItemsList[this.state.selectedIndex] = item
-        // this.setState({items: newItemsList}, this.updateTotals)
     }
 
     const updateTotals = () => {
@@ -90,25 +69,63 @@ function Workspace() {
     }
 
     const handleCheckout = () => {
+        CustomerService.find({
+            phone_no: phone
+        }).then(
+            response => {
+                console.log("Customer already exists in database")
+            }
+        ).catch(
+            e => {
+                console.log("Could not find customer in database. Creating new entry")
+                CustomerService.create({
+                    phone_no: phone,
+                    name: name,
+                    email: null,
+                }).then(
+                    response => console.log("Customer added")
+                ).catch(
+                    e => console.log(e)
+                )
+            }
+        )
+
         TransactionService.create({
             date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            customer_pno: phone,
             balance: total,
         }).then(
             response => {
                 // alert('Transaction recorded')
-        }).catch(
+            }
+        ).catch(
             e => console.log(e)
         )
         navigate("/")
+    }
+
+    const handleInput = (e, field) =>{
+        inputFields[field](e.target.value)
+
+        if (field === 'phone') {
+            CustomerService.find({
+                phone_no: e.target.value
+            }).then(
+                response => {
+                    console.log("Customer already exists in database")
+                    setName(response.data.name)
+                }
+            ).catch(
+                setName('')
+            )
+        }
     }
 
     return (
         <DefaultLayout>
             <div className="workspace-container workspace-grid">
                 <div>
-                    {/* <fieldset className="rounded-border">
-                        <legend><h1>INVOICE</h1></legend> */}
-                        {/* <NewItem addItem={this.addItem} /> */}
+                    <div>
                         <List 
                             items={items} 
                             addItem={addItem} 
@@ -116,9 +133,20 @@ function Workspace() {
                             selectedIndex={selectedIndex} 
                             setSelectedItem={select} 
                         />
-                    {/* </fieldset> */}
+                    </div>
                 </div>
                 <div>
+                    <div className="std-container">
+                        <div className="head">
+                            <h3>Customer Details</h3>
+                        </div>
+                        <div className="basic-details">
+                            <label>Phone No.</label>
+                            <input type="text" name="phone" value={phone} onChange={(e) => handleInput(e, 'phone')}></input>
+                            <label>Name</label>
+                            <input type="text" name="name" value={name} onChange={(e) => handleInput(e, 'name')}></input>
+                        </div>
+                    </div>
                     <Summary total={total} tax={0} discount={0} handleCheckout={handleCheckout} />
                     {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
                 </div>

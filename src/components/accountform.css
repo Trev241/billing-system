@@ -13,12 +13,7 @@
     border-radius: 3px;
 }
 
-h1 {
-  text-align: center;
-  /* padding-top: 15px; */
-}
-
-form {
+.info form {
     /* width: 50%; */
 
     display: flex;
@@ -27,7 +22,7 @@ form {
 
 }
 
-form label{
+.info form label{
     display: flex;
     padding: 10px 0 10px 0;
     height: 25px;
@@ -36,7 +31,7 @@ form label{
     font-size: 18px;
 }
 
-form input{
+.info form input{
     width: 300px;
     padding: 10px 0 10px 0;
     
@@ -68,7 +63,7 @@ form input{
     opacity: 0.5;
 }
 
-p {
+.info p {
     text-align: center;
     color: black;
     font-size: 15px;
@@ -79,6 +74,6 @@ p {
     color: red;
 }
 
-p a {
+.info p a {
     color: #49c1a2;
 }
