@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./inventory.css"
+// import "./inventory.css"
 
 class Inventory extends React.Component {
     render() {
