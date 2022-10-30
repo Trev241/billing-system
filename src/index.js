@@ -13,6 +13,7 @@ import ErrorPage from './components/ErrorPage'
 import Login from './components/Login'
 import Signup from './components/Signup';
 import Workspace from './components/Workspace';
+import History from './components/history';
 import { AuthProvider } from './AuthProvider';
 
 const router = createBrowserRouter([
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <Signup />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/history",
+        element: <History />,
         errorElement: <ErrorPage />
     }
 ])

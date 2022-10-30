@@ -94,6 +94,7 @@ function Workspace() {
             date: new Date().toISOString().slice(0, 19).replace('T', ' '),
             customer_pno: phone,
             balance: total,
+            products: items
         }).then(
             response => {
                 // alert('Transaction recorded')
