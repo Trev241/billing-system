@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import AuthContext from "../AuthProvider";
 import DefaultLayout from "./DefaultLayout";
+import "./home.css"
 
 function HomePage() {
     const navigate = useNavigate();
@@ -19,55 +20,33 @@ function HomePage() {
 
     return (
         <DefaultLayout>
-        <div className="container-sm">
+        <div className="banner">
             <div>
-            <div className="hero-content">
-                <div style={{ "white-space": "nowrap" }}>
-                <h3
-                    className="mt-0 mb-16 reveal-from-bottom"
-                    data-reveal-delay="200"
+                <h1>Invoice intelligently with our Billing System</h1>
+                <input
+                    className="button"
+                    type="button"
+                    onClick={routeChange}
+                    value="Get Started"
                 >
-                    Invoice intelligently using our{" "}
-                    <div className="type-container">
-                    <div className="text-color-primary typed-out">
-                        Billing System
-                    </div>
-                    </div>
-                </h3>
-                <p
-                    className="m-0 mb-32 reveal-from-bottom"
-                    style={{ color: "white" }}
-                    data-reveal-delay="400"
-                >
-                    One Free, Powerful Invoicing Platform.
-                </p>
-                </div>
+                </input>
+            </div>
 
-                <div
-                className="hero-figure reveal-from-bottom illustration-element-01 mb-24"
-                data-reveal-value="20px"
-                data-reveal-delay="800"
-                >
-                <img
-                    className="has-shadow"
-                    src={require("./../assets/images/inverted.gif")}
-                    alt="Hero"
-                    width={600}
-                    height={504}
-                />
-                </div>
-                <div className="container-xs">
-                <div className="reveal-from-bottom" data-reveal-delay="600">
-                    <input
-                        type="button"
-                        onClick={routeChange}
-                        value="Get Started"
-                    >
-                    </input>
-                </div>
-                </div>
+            <div>
+            <img
+                src={require("./../assets/images/inverted.gif")}
+                alt="banner-image"
+            />
             </div>
-            </div>
+        </div>
+        <div className="features">
+            <h1>Why choose our product?</h1>
+            <ul>
+                <li>Absolutely free</li>
+                <li>Incredibly simple</li>
+                <li>Accessible to all</li>
+                <li>Very efficient</li>
+            </ul>
         </div>
         </DefaultLayout>
     )

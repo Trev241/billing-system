@@ -28,7 +28,7 @@ function History() {
 
     useEffect(() => {
         TransactionService.getAll().then(
-            response => setTransactions(response.data)
+            response => setTransactions(response.data.reverse())
         ).catch(
             e => console.log(e)
         )

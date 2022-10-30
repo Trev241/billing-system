@@ -102,7 +102,7 @@ function Workspace() {
         ).catch(
             e => console.log(e)
         )
-        navigate("/")
+        navigate("/history")
     }
 
     const handleInput = (e, field) =>{
