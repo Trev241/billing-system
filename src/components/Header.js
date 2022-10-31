@@ -7,7 +7,7 @@ class Header extends React.Component {
     render() {
         return (
             <div className="header">
-                <h1>BILLING SYSTEM</h1>
+                <h1>e-Invoicer</h1>
                 <div>
                     <ul>
                         <li><Link to="/">HOME</Link></li>
