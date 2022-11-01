@@ -1,0 +1,58 @@
+.history {
+    padding: 20px;
+}
+
+.history .date-section > * {
+    padding: 15px;
+    margin: 10px;
+}
+
+.history .date-section h1 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px;
+
+    border-style: solid;
+    border-color: #a3a3a3;
+    border-width: 0 0 2px 0;
+}
+
+.history .date-section h1 input {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+
+    border-radius: 10px;
+    background-color: #d1d1d1;
+    font-size: 32px;
+
+    overflow: hidden;
+}
+
+/* Transaction */
+.transaction {
+    border: 2px solid white;
+}
+
+.transaction:hover {
+    background-color: lightskyblue;
+    border-radius: 10px;
+}
+
+.transaction h2,
+.transaction .list {
+    /* display: flex;
+    justify-content: space-between; */
+
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.total {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.total:last-child {
+    text-align: right;
+}

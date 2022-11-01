@@ -1,20 +1,55 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import DefaultLayout from "./DefaultLayout";
+
 import AuthContext from "../AuthProvider";
-// import { Outlet } from 'react-router-dom'
+import DefaultLayout from "./DefaultLayout";
+import "./home.css"
 
+function HomePage() {
+    const navigate = useNavigate();
+    const { auth } = useContext(AuthContext);
 
-function Home() {
-    const { auth } = useContext(AuthContext)
+    const emailName = auth.email;
+
+    const routeChange = () => {
+        // console.log("first");
+        let path = `signup`;
+        navigate(path);
+    };
 
     return (
         <DefaultLayout>
-            <p>Currently logged in as {auth.email}</p>
-            <Link to={'/create-invoice'}>Create a new invoice</Link>
-            {/* <Outlet /> */}
+        <div className="banner">
+            <div>
+                <h1>Invoice intelligently with our Billing System</h1>
+                <input
+                    className="button"
+                    type="button"
+                    onClick={routeChange}
+                    value="Get Started"
+                >
+                </input>
+            </div>
+
+            <div>
+            <img
+                src={require("./../assets/images/inverted.gif")}
+                alt="banner-image"
+            />
+            </div>
+        </div>
+        <div className="features">
+            <h1>Why choose our product?</h1>
+            <ul>
+                <li>Absolutely free</li>
+                <li>Incredibly simple</li>
+                <li>Accessible to all</li>
+                <li>Very efficient</li>
+            </ul>
+        </div>
         </DefaultLayout>
     )
 }
 
-export default Home
+export default HomePage;

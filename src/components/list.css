@@ -10,18 +10,20 @@ table * {
 
 /* Assigning width ratios to each column */
 table .id {
-  width: 20%;
+  width: 10%;
 }
 
 table .name {
-  width: 35%;
+  width: 40%;
 }
 
 table :is(
 .price,
+.tax,
+.discount,
 .qty,
 .subtotal) {
-  width: 15%;   
+  width: 10%;   
 }
 
 /* 
@@ -48,7 +50,7 @@ the padding value that was inherited from the workspace-container class
 */
 .workspace-container table tbody tr td,
 .workspace-container table thead tr th {
-  padding: 2em;
+  padding: 2em .5em 2em .5em;
   
   border: 0 solid #050e53;
   /* border-style: solid;
@@ -95,10 +97,6 @@ table tbody tr:not(:last-child) >:last-child {
   font-weight: bold;
 } */
 
-table th:last-child {
-  text-align: right;
-}
-
 /* table tbody :is(
 tr:not(:last-child):hover,
 tr:not(:last-child):active,
@@ -115,8 +113,7 @@ table tbody tr:not(:last-child):hover * {
   opacity: .5;
 } */
 
-.workspace-container
-table :is(input, input:focus) {
+.workspace-container table input {
   width: 90%;
   padding: 0px;
   outline: none;

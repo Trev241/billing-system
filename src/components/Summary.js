@@ -26,7 +26,7 @@ class Summary extends React.Component {
     render() {
         const { total, tax, discount } = this.props
         const balance = total - tax - discount
-        const change = this.state.amountPaid - total
+        const change = Math.round((this.state.amountPaid - total) * 100) / 100 
 
         return (
             <>

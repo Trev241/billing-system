@@ -3,7 +3,9 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    router.post('/', transactions.create)
-  
+    router.post('/create', transactions.create)
+    router.post('/details', transactions.getDetails)
+    router.get('/all', transactions.getAll)
+
     app.use('/api/transactions', router);
 }

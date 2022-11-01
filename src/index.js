@@ -13,6 +13,7 @@ import ErrorPage from './components/ErrorPage'
 import Login from './components/Login'
 import Signup from './components/Signup';
 import Workspace from './components/Workspace';
+import History from './components/history';
 import { AuthProvider } from './AuthProvider';
 import Inventory from './components/Inventory';
 
@@ -46,6 +47,11 @@ const router = createBrowserRouter([
     {
         path: "/inventory",
         element: <Inventory />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/history",
+        element: <History />,
         errorElement: <ErrorPage />
     }
 ])
