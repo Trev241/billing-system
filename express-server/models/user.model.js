@@ -44,9 +44,10 @@ User.find = (email, password, result) => {
             result(err, null)
             return
         }
-
+        
         if (res.length) {
             console.log("Found user: ", res[0]);
+            console.log("Query: ", `SELECT * FROM User WHERE email = "${email}" AND password = "${password}"`)
             result(null, res[0]);
             return;
         }
