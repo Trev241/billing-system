@@ -7,18 +7,62 @@ import "./history.css"
 const Transaction = ({
     transaction
 }) => {
+    const [expanded, setExpanded] = useState(false)
+    const [products, setProducts] = useState([])
+
     return (
-        <div className="transaction">
-            ID: {transaction.transaction_id} Balance: {transaction.balance} Customer: {transaction.customer_pno}
+        <div 
+            className="transaction" 
+            onClick={(e) => { 
+                setExpanded(!expanded)
+                TransactionService.getDetails({id: transaction.transaction_id}).then(
+                    response => setProducts(response.data)
+                ).catch(e => console.log(e))
+            }}
+        >
+            <h2>
+                <span>{transaction.date.slice(11, 19)}</span>
+                #{transaction.transaction_id}
+                <span className="total">
+                    <span className="currency">₹</span>
+                    <span>{transaction.balance}</span>
+                </span>
+            </h2>
+            {
+                expanded ? (
+                    <div className="list">
+                        <div></div>
+                        <div>
+                            <ul>
+                                {products.map(p => <li>{p.name}</li>)}
+                            </ul>
+                        </div>
+                    </div>
+                ) : (
+                    <></>
+                )
+            }
         </div>
     )
 }
 
-const CollapsableSection = ({heading, data}) => {
+const Section = ({
+    date,
+    transactions
+}) => {
+    const [visible, setVisible] = useState(true)
+
     return (
-        <div className="collapsable-section">
-            <h1>{heading}</h1>
-            {data}
+        <div className="date-section">
+            <h1>
+                {date}
+                <input type="button" value={visible ? "-" : "+"} onClick={(e) => setVisible(!visible)} />
+            </h1>
+            {
+                visible 
+                ? transactions.map(t => <Transaction transaction={t} />)
+                : <></>
+            }
         </div>
     )
 }
@@ -34,28 +78,19 @@ function History() {
         )
     })
 
-    const dates = new Set()
-    let rows = []
-
+    let history = {}
     transactions.forEach(t => {
         let date = t.date.slice(0, 10)
-        if (!dates.has(date)) { 
-            dates.add(date)
-            rows.push(
-                <h1>{date}</h1>
-            )
-        }
-
-        rows.push(
-            <Transaction transaction={t} />
-        )
+        history[date] = (date in history) ? [...history[date], t] : [t]
     })
 
     return (
         <DefaultLayout>
-            <div className="history">
-                {rows}
-            </div>
+        <div className="history">
+            {Object.keys(history).map(date => {
+                return <Section date={date} transactions={history[date]} />
+            })}
+        </div>
         </DefaultLayout>
     )
 }

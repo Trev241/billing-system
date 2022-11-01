@@ -33,3 +33,19 @@ exports.getAll = (req, res) => {
         } else res.send(data)
     })
 }
+
+exports.getDetails = (req, res) => {
+    Transaction.findProductsInId(req.body.id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: "No products to retrieve"
+                })
+            } else {
+                res.status(500).send({
+                    message: "Error while retrieving transaction breakdown"
+                })
+            }
+        } else res.send(data)
+    })
+}

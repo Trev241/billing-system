@@ -13,10 +13,6 @@ import CustomerService from "../services/customer.service";
 function Workspace() {
     const [items, setItems] = useState([])
     const [total, setTotal] = useState(0)
-    const [tax, setTax] = useState(0)
-    const [discount, setDiscount] = useState(0)
-    const [selectedItem, setSelectedItem] = useState(null)
-    const [selectedIndex, setSelectedIndex] = useState(null)
 
     const [phone, setPhone] = useState('')
     const [name, setName] = useState('')
@@ -40,32 +36,32 @@ function Workspace() {
 
     const addItem = () => {
         let newItems = items
-        newItems = [...items, {id: '', name: '', price: '', qty: ''}]
+        newItems = [...items, {id: '', name: '', rate: '', discount: 0, tax: 0, qty: '', subtotal: 0}]
         setItems(newItems)
 
-        updateTotals()
-    }
-
-    const select = (item, i) => {
-        setSelectedItem(item)
-        setSelectedIndex(i)
+        // updateTotals()
     }
 
     const updateSelectedItem = (i, field, value) => {
         // This former approach was bad, do not directly mutate state. Always make a copy of it
         // let newItemsList = items 
-        let newItemsList = [...items]
-        // Assign the new value to the designated field
-        newItemsList[i][field] = value
-        setItems(newItemsList)
 
+        let newItemsList = [...items]
+        let item = newItemsList[i]
+        
+        // Assign the new value to the designated field
+        item[field] = value
+        setItems(newItemsList)
+        
+        // Updating subtotal
+        item['subtotal'] = Math.round(((+item.rate * +item.qty) * ((100 - +item.discount) / 100) * ((100 + +item.tax) / 100)) * 100) / 100
         updateTotals()
     }
 
     const updateTotals = () => {
         let total = 0
-        items.map(item => total += item.price * item.qty)
-        setTotal(total)
+        items.map(item => total += +item.subtotal)
+        setTotal(Math.round(total * 100) / 100)
     }
 
     const handleCheckout = () => {
@@ -126,15 +122,11 @@ function Workspace() {
         <DefaultLayout>
             <div className="workspace-container workspace-grid">
                 <div>
-                    <div>
-                        <List 
-                            items={items} 
-                            addItem={addItem} 
-                            updateSelectedItem={updateSelectedItem} 
-                            selectedIndex={selectedIndex} 
-                            setSelectedItem={select} 
-                        />
-                    </div>
+                    <List 
+                        items={items} 
+                        addItem={addItem} 
+                        updateSelectedItem={updateSelectedItem} 
+                    />
                 </div>
                 <div>
                     <div className="std-container">

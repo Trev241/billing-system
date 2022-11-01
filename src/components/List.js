@@ -32,16 +32,18 @@ class List extends React.Component {
 
         if (field === "id") {
             ProductService.get(e.target.value).then(
-                response => {
-                    this.props.updateSelectedItem(i, "name", response.data.name)
-                    this.props.updateSelectedItem(i, "price", response.data.rate)
-                }
+                response => this.autofill(i, response.data)
             ).catch(
                 e => {
                     console.log(e)
-                    
-                    this.props.updateSelectedItem(i, "name", '')
-                    this.props.updateSelectedItem(i, "price", '')
+                    this.autofill(i, {
+                        id: '',
+                        name: '',
+                        rate: '',
+                        discount: 0,
+                        tax: 0,
+                        qty: '',
+                    })
                 }
             )
         } else if (field === "name") {
@@ -49,16 +51,10 @@ class List extends React.Component {
             ProductService.getByName(e.target.value).then(
                 response => {
                     this.setState({options: [...response.data]})
-                    console.log(this.state.options)
-
+                    
                     // Autofill details if exact name is given
-                    if (e.target.value === response.data[0].name) {
-                        this.props.updateSelectedItem(i, "id", response.data[0].product_id)
-                        this.props.updateSelectedItem(i, "price", response.data[0].rate)
-                    } else {
-                        this.props.updateSelectedItem(i, "id", '')
-                        this.props.updateSelectedItem(i, "price", '')
-                    }
+                    if (e.target.value === response.data[0].name) 
+                        this.autofill(i, response.data[0])
                 }
             ).catch(
                 e => console.log(e)
@@ -66,13 +62,19 @@ class List extends React.Component {
         }
     }
 
+    autofill(i, item) {
+        this.props.updateSelectedItem(i, "id", item.product_id)
+        this.props.updateSelectedItem(i, "name", item.name)
+        this.props.updateSelectedItem(i, "rate", item.rate)
+        this.props.updateSelectedItem(i, "discount", 0)
+        this.props.updateSelectedItem(i, "tax", item.tax)
+    }
+
     render () {
-        const rows = []//, empty = this.props.items.length === 0
-        // let total = 0
+        const rows = []
         
         for (let i = 0; i < this.props.items.length; i++) { 
             const item = this.props.items[i];
-            const subtotal = item.price * item.qty
 
             rows.push(
                 // TODO: Change key for tr once rows can be reordered
@@ -81,45 +83,43 @@ class List extends React.Component {
                         prop => (
                             <td key={prop}>
                             {
-                                (prop === "name") 
-                                ? <>
-                                <input list="names" name="name" value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
-                                <datalist id="names">
-                                    {this.state.options.map(option => <option key={option} value={option.name} />)}
-                                </datalist></>
-                                : <input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
+                                (prop === "name") ? ( <>
+                                    <input list="names" name="name" value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
+                                    <datalist id="names">
+                                        {this.state.options.map(option => <option key={option} value={option.name} />)}
+                                    </datalist></>
+                                ) : <input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
                             }
                             </td>
                         )
                     )}
-                    <td>{subtotal}</td>
                 </tr>
             )
         }
 
         return (
-            <>
-                <table>
-                    <thead>
-                        <tr>
-                            {/* {Object.keys(this.props.items[0]).map(
-                                prop => <th>{prop.toUpperCase()}</th>
-                            )} */}
-                            <th className="id">ID</th>
-                            <th className="name">NAME</th>
-                            <th className="price">PRICE</th>
-                            <th className="qty">QUANTITY</th>
-                            <th className="subtotal">SUBTOTAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                        <tr key="add">
-                            <td className="noselect" colSpan={5} onClick={this.handleAddItem}>Add Item</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </>
+            <table>
+                <thead>
+                    <tr>
+                        {/* {Object.keys(this.props.items[0]).map(
+                            prop => <th>{prop.toUpperCase()}</th>
+                        )} */}
+                        <th className="id">ID</th>
+                        <th className="name">NAME</th>
+                        <th className="price">PRICE</th>
+                        <th className="discount">DISCOUNT %</th>
+                        <th className="tax">TAX RATE %</th>
+                        <th className="qty">QTY (Units)</th>
+                        <th className="subtotal">SUBTOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows}
+                    <tr key="add">
+                        <td className="noselect" colSpan={7} onClick={this.handleAddItem}>Add Item</td>
+                    </tr>
+                </tbody>
+            </table>
         ) 
     }
 }
