@@ -15,6 +15,7 @@ import Signup from './components/Signup';
 import Workspace from './components/Workspace';
 import History from './components/history';
 import { AuthProvider } from './AuthProvider';
+import Inventory from './components/Inventory';
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <Signup />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "/inventory",
+        element: <Inventory />,
         errorElement: <ErrorPage />
     },
     {
