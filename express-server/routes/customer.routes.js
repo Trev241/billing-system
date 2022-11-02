@@ -3,8 +3,8 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    router.post('/create', customers.create)
-    router.post('/find', customers.findOne)
+    router.post("/create", customers.create)
+    router.post("/find", customers.findOne)
   
-    app.use('/api/customers', router);
+    app.use("/api/customers", router);
 }

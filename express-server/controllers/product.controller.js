@@ -1,7 +1,20 @@
 const Product = require("../models/product.model.js")
 
 exports.create = (req, res) => {
+    const product = new Product({
+        name: req.body.name,
+        rate: req.body.rate,
+        tax: req.body.tax,
+        stock: req.body.stock,
+    })
 
+    Product.create(product, (err, data) => {
+        if (err) 
+            res.status(500).send({
+                message: err.message  || "Some error occurred while creating the product"
+            })
+        else res.send(data)
+    })
 }
 
 exports.findMany = (req, res) => {

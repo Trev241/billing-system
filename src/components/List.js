@@ -98,7 +98,7 @@ class List extends React.Component {
         }
 
         return (
-            <table>
+            <table className="invoice">
                 <thead>
                     <tr>
                         {/* {Object.keys(this.props.items[0]).map(

@@ -2,7 +2,6 @@ const sql = require("./db.js")
 
 // constructor
 const Product = function(product) {
-    this.product_id = product.product_id
     this.name = product.name
     this.stock = product.stock
     this.rate = product.rate

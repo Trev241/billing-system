@@ -3,9 +3,9 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    router.post('/create', transactions.create)
-    router.post('/details', transactions.getDetails)
-    router.get('/all', transactions.getAll)
+    router.post("/create", transactions.create)
+    router.post("/details", transactions.getDetails)
+    router.get("/all", transactions.getAll)
 
-    app.use('/api/transactions', router);
+    app.use("/api/transactions", router);
 }

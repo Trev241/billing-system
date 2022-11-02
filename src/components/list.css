@@ -1,23 +1,23 @@
-table {
+table.invoice {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
 }
 
-table * {
+table.invoice * {
   text-align: center;
 }
 
 /* Assigning width ratios to each column */
-table .id {
+table.invoice .id {
   width: 10%;
 }
 
-table .name {
+table.invoice .name {
   width: 40%;
 }
 
-table :is(
+table.invoice :is(
 .price,
 .tax,
 .discount,
@@ -32,15 +32,15 @@ This is because the td themselves will have an overriding effect.
 In order to create borders with rounded-corners, change the border-
 radius property of the cells themselves
 */
-table th:last-child {
+table.invoice th:last-child {
   border-top-right-radius: 10px;
 }
 
-table th:first-child {
+table.invoice th:first-child {
   border-top-left-radius: 10px;
 }
 
-table tr:last-child td:hover {
+table.invoice tr:last-child td:hover {
   background-color: #2e60a9;
 }
 
@@ -48,8 +48,8 @@ table tr:last-child td:hover {
 It is necessary to mention the parent container's class name in order to override
 the padding value that was inherited from the workspace-container class
 */
-.workspace-container table tbody tr td,
-.workspace-container table thead tr th {
+.workspace-container table.invoice tbody tr td,
+.workspace-container table.invoice thead tr th {
   padding: 2em .5em 2em .5em;
   
   border: 0 solid #050e53;
@@ -57,20 +57,20 @@ the padding value that was inherited from the workspace-container class
   border-color: black; */
 }
 
-table th {
+table.invoice th {
   background-color: #050e53;
   color: white;
 }
 
-table tr:not(:last-child) td:first-child {
+table.invoice tr:not(:last-child) td:first-child {
   border-width: 0 0 0 2px;
 }
 
-table tr:not(:last-child) td:last-child {
+table.invoice tr:not(:last-child) td:last-child {
   border-width: 0 2px 0 0;
 }
 
-table tr:last-child td {
+table.invoice tr:last-child td {
   border: 2px solid #173f7c;
   border-width: 0 2px 2px 2px;
   border-radius: 0 0 10px 10px;
@@ -79,11 +79,11 @@ table tr:last-child td {
   color: white;
 }
 
-table tbody tr:not(:last-child) >:last-child {
+table.invoice tbody tr:not(:last-child) >:last-child {
   text-align: right;
 }
 
-.workspace-container table th {
+.workspace-container table.invoice th {
   padding: .75em;
   font-size: large;
 }
@@ -105,7 +105,7 @@ tr.selected,) {
   border-width: 0 .1em 0 .1em;
 } */
 
-table tbody tr:not(:last-child):hover * {
+table.invoice tbody tr:not(:last-child):hover * {
   background-color: #e0ffff;
 }
 
@@ -113,7 +113,7 @@ table tbody tr:not(:last-child):hover * {
   opacity: .5;
 } */
 
-.workspace-container table input {
+.workspace-container table.invoice input {
   width: 90%;
   padding: 0px;
   outline: none;
