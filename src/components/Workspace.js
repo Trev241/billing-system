@@ -122,26 +122,24 @@ function Workspace() {
         <DefaultLayout>
             <div className="workspace-container workspace-grid">
                 <div>
+                    <div className="std-container">
+                        <div className="head">
+                            Customer Details
+                        </div>
+                        <div className="body">
+                            <input type="text" name="phone" placeholder="Phone number" value={phone} onChange={(e) => handleInput(e, 'phone')}></input>
+                            <input type="text" name="name" placeholder="Name" value={name} onChange={(e) => handleInput(e, 'name')}></input>
+                        </div>
+                    </div>
+                    <Summary total={total} tax={0} discount={0} handleCheckout={handleCheckout} />
+                    {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
+                </div>
+                <div>
                     <List 
                         items={items} 
                         addItem={addItem} 
                         updateSelectedItem={updateSelectedItem} 
                     />
-                </div>
-                <div>
-                    <div className="std-container">
-                        <div className="head">
-                            <h3>Customer Details</h3>
-                        </div>
-                        <div className="basic-details">
-                            <label>Phone No.</label>
-                            <input type="text" name="phone" value={phone} onChange={(e) => handleInput(e, 'phone')}></input>
-                            <label>Name</label>
-                            <input type="text" name="name" value={name} onChange={(e) => handleInput(e, 'name')}></input>
-                        </div>
-                    </div>
-                    <Summary total={total} tax={0} discount={0} handleCheckout={handleCheckout} />
-                    {/* <Details item={this.state.selectedItem} updateSelectedItem={this.updateSelectedItem} /> */}
                 </div>
             </div>
         </DefaultLayout>

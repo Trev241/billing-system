@@ -98,28 +98,30 @@ class List extends React.Component {
         }
 
         return (
-            <table className="invoice">
-                <thead>
-                    <tr>
-                        {/* {Object.keys(this.props.items[0]).map(
-                            prop => <th>{prop.toUpperCase()}</th>
-                        )} */}
-                        <th className="id">ID</th>
-                        <th className="name">NAME</th>
-                        <th className="price">PRICE</th>
-                        <th className="discount">DISCOUNT %</th>
-                        <th className="tax">TAX RATE %</th>
-                        <th className="qty">QTY (Units)</th>
-                        <th className="subtotal">SUBTOTAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows}
-                    <tr key="add">
-                        <td className="noselect" colSpan={7} onClick={this.handleAddItem}>Add Item</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div className="create-invoice">
+                <table className="invoice">
+                    <thead>
+                        <tr>
+                            {/* {Object.keys(this.props.items[0]).map(
+                                prop => <th>{prop.toUpperCase()}</th>
+                            )} */}
+                            <th className="id">ID</th>
+                            <th className="name">NAME</th>
+                            <th className="price">PRICE</th>
+                            <th className="discount">DISC.</th>
+                            <th className="tax">TAX</th>
+                            <th className="qty">QTY</th>
+                            <th className="subtotal">SUBTOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+                <div className="add-item">
+                    <button onClick={this.handleAddItem}>Add Item</button>
+                </div>
+            </div>
         ) 
     }
 }

@@ -1,27 +1,4 @@
-/*  Reset all styling that some browsers may impose by default */
-* {
-  margin: 0;
-  padding: 0;
-
-  /*
-  Fixes bug where html element would not occupy the entire screen at smaller dimensions.
-  This was affecting the banner's width since it was no longer occupying the entire window.
-
-  Refer https://stackoverflow.com/questions/11801752/html-body-and-div-set-at-100-width-but-its-still-not-taking-the-full-100
-  */
-  overflow: auto;
-}
-
 html {
-  height: 100%;
-}
-
-body {
-  font: 14px "Trebuchet MS", Futura, sans-serif;
-  height: 100%;
-}
-
-#root {
   height: 100%;
 }
 
@@ -41,9 +18,12 @@ body {
   grid-template-rows: 9fr 1fr;
 } */
 
+.workspace-container .std-container {
+  margin: 2em 0 2em 0;
+}
+
 .workspace-container {
   padding: 20px;
-  
   
   /*
   Adding padding and setting width at 100% simultaneously seems to cause the workspace div to overflow.
@@ -63,8 +43,8 @@ body {
 
 .workspace-grid {
   display: grid;
-  grid-template-columns: 5fr 2fr;
-  column-gap: 2%;
+  grid-template-columns: 1fr 4fr;
+  column-gap: 5%;
 }
 
 .footer {
@@ -72,62 +52,5 @@ body {
   position:fixed;
   bottom:0;
   left:0;
-}
-
-.workspace-container {
-  height: auto;
-}
-
-.workspace-container * {
-  padding: .3em;
-}
-
-.centered-label {
-  display: flex;
-  justify-content: center;
-  margin: 1%;
-  text-align: center;
-}
-
-div.std-container div.head {
-  background-color: #050e53;
-  color: white;
-  font-size: 1.5em;
-  border-radius: 10px 10px 0 0;
-}
-
-div.std-container div.body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 15px;
-
-  padding: 15px;
-
-  border: 2px solid #010737;
-  border-radius: 0 0 10px 10px;
-}
-
-.basic-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 15px;
-
-  padding: 15px;
-
-  border: 2px solid #010737;
-  border-radius: 0 0 10px 10px;
-}
-
-.rounded-border {
-  border-style: solid;
-  border-color: #969696;
-  border-width: 2px;
-  border-radius: 10px;
-}
-
-.add-item-container {
-  display: grid;
-  grid-template-columns: 2fr 3fr 7fr 2fr 1fr;
-  column-gap: 2%;
 }
 

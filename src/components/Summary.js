@@ -32,28 +32,19 @@ class Summary extends React.Component {
             <>
                 <div className="std-container">
                     <div className="head">
-                        <div>Balance due</div>
+                        Balance due
                         <h1>{total}</h1>
                     </div>
                     <div className="body">
-                        <label>Gross Total</label>
-                        <b>{total}</b>
-                        <label>+ Tax</label>
-                        <b>{tax}</b>
-                        <label>- Discount</label>
-                        <b>{discount}</b>
-                        <label><b>NET BALANCE</b></label>
-                        <b>{balance}</b>
-                        <label>Amount Paid</label>
-                        <input value={this.state.amountPaid} onChange={this.handleAmountInput} />
-                        <label>Return Change</label>
-                        <b>
-                            {
-                                change < 0
-                                ? "Amound paid is insufficient!"
-                                : change
-                            }
-                        </b>
+                        <div>
+                            Received:
+                            <input value={this.state.amountPaid} onChange={this.handleAmountInput} />
+                        </div>
+                        {
+                            change < 0
+                            ? "Amound paid is insufficient!"
+                            : <>Change: {change}</>
+                        }
                     </div>
                 </div>
                 <div className="checkout">

@@ -4,10 +4,9 @@ import {
     createBrowserRouter,
     RouterProvider,
     // Route,
-  } from "react-router-dom";
+} from "react-router-dom";
 
-// import './index.css'
-
+  
 import Home from './components/Home'
 import ErrorPage from './components/ErrorPage'
 import Login from './components/Login'
@@ -16,6 +15,7 @@ import Workspace from './components/Workspace';
 import History from './components/history';
 import { AuthProvider } from './AuthProvider';
 import Inventory from './components/Inventory';
+import './index.css'
 
 const router = createBrowserRouter([
     {

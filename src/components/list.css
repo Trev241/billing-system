@@ -1,11 +1,12 @@
-table.invoice {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
+.create-invoice .add-item {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
 }
 
-table.invoice * {
-  text-align: center;
+.create-invoice button {
+  width: 50%;
+  padding: 2em;
 }
 
 /* Assigning width ratios to each column */
@@ -26,13 +27,25 @@ table.invoice :is(
   width: 10%;   
 }
 
+table.invoice input {
+  /* Setting 100% width for the table input values is necessary to prevent them from expanding to their default width*/
+  width: 100%;
+  padding: 1em 0 1em 0;
+
+  text-align: center;
+}
+
+table.invoice td {
+  padding: 2em;
+}
+
 /* 
 The border-radius property will not work with a collapsed border!
 This is because the td themselves will have an overriding effect.
 In order to create borders with rounded-corners, change the border-
 radius property of the cells themselves
 */
-table.invoice th:last-child {
+/* table.invoice th:last-child {
   border-top-right-radius: 10px;
 }
 
@@ -42,19 +55,17 @@ table.invoice th:first-child {
 
 table.invoice tr:last-child td:hover {
   background-color: #2e60a9;
-}
+} */
 
 /*
 It is necessary to mention the parent container's class name in order to override
 the padding value that was inherited from the workspace-container class
 */
-.workspace-container table.invoice tbody tr td,
+/* .workspace-container table.invoice tbody tr td,
 .workspace-container table.invoice thead tr th {
   padding: 2em .5em 2em .5em;
   
   border: 0 solid #050e53;
-  /* border-style: solid;
-  border-color: black; */
 }
 
 table.invoice th {
@@ -86,7 +97,7 @@ table.invoice tbody tr:not(:last-child) >:last-child {
 .workspace-container table.invoice th {
   padding: .75em;
   font-size: large;
-}
+} */
 
 /* .workspace-container table tbody tr:last-child * {
   border-style: solid;
@@ -105,18 +116,10 @@ tr.selected,) {
   border-width: 0 .1em 0 .1em;
 } */
 
-table.invoice tbody tr:not(:last-child):hover * {
+/* table.invoice tbody tr:not(:last-child):hover * {
   background-color: #e0ffff;
-}
+} */
 
 /* table tbody tr:active {
   opacity: .5;
 } */
-
-.workspace-container table.invoice input {
-  width: 90%;
-  padding: 0px;
-  outline: none;
-
-  border-width: 0 0 .1em 0;
-}
