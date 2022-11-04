@@ -16,7 +16,9 @@ class Summary extends React.Component {
     }
 
     handleAmountInput(e) {
-        this.setState({amountPaid: e.target.value})
+        if(/^[0-9]*$/.test(e.target.value)){
+            this.setState({amountPaid: e.target.value})
+        }
     }
 
     handleExpand() {
@@ -36,10 +38,7 @@ class Summary extends React.Component {
                         <h1>{total}</h1>
                     </div>
                     <div className="body">
-                        <div>
-                            Received:
-                            <input value={this.state.amountPaid} onChange={this.handleAmountInput} />
-                        </div>
+                        <input placeholder="Amount Received" value={this.state.amountPaid === 0 ? "" : this.state.amountPaid} onChange={this.handleAmountInput} />
                         {
                             change < 0
                             ? "Amound paid is insufficient!"

@@ -28,24 +28,26 @@ class List extends React.Component {
     }
 
     handleInput(e, i, field) {
-        this.props.updateSelectedItem(i, field, e.target.value)
-
         if (field === "id") {
-            ProductService.get(e.target.value).then(
-                response => this.autofill(i, response.data)
-            ).catch(
-                e => {
-                    console.log(e)
-                    this.autofill(i, {
-                        id: '',
-                        name: '',
-                        rate: '',
-                        discount: 0,
-                        tax: 0,
-                        qty: '',
-                    })
-                }
-            )
+            if(/^[0-9]*$/.test(e.target.value)){
+                ProductService.get(e.target.value).then(
+                    response => this.autofill(i, response.data)
+                ).catch(
+                    e => {
+                        console.log(e)
+                        this.autofill(i, {
+                            id: '',
+                            name: '',
+                            rate: '',
+                            discount: 0,
+                            tax: 0,
+                            qty: '',
+                        })
+                    }
+                )
+
+                this.props.updateSelectedItem(i, "id", e.target.value)
+            } else console.log("error")
         } else if (field === "name") {
             // Fetch products beginning with the name entered
             ProductService.getByName(e.target.value).then(
@@ -59,7 +61,7 @@ class List extends React.Component {
             ).catch(
                 e => console.log(e)
             )
-        }
+        } else this.props.updateSelectedItem(i, field, e.target.value)
     }
 
     autofill(i, item) {

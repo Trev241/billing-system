@@ -102,20 +102,25 @@ function Workspace() {
     }
 
     const handleInput = (e, field) =>{
-        inputFields[field](e.target.value)
-
         if (field === 'phone') {
-            CustomerService.find({
-                phone_no: e.target.value
-            }).then(
-                response => {
-                    console.log("Customer already exists in database")
-                    setName(response.data.name)
-                }
-            ).catch(
-                setName('')
-            )
+            if (/^[0-9]{0,10}$/.test(e.target.value)) {
+                console.log("accepted")
+                CustomerService.find({
+                    phone_no: e.target.value
+                }).then(
+                    response => {
+                        console.log("Customer already exists in database")
+                        setName(response.data.name)
+                    }
+                ).catch(
+                    setName('')
+                )
+                setPhone(e.target.value)
+            } else console.log("Invalid characters")
         }
+
+        if (field === 'name') 
+            setName(e.target.value)
     }
 
     return (

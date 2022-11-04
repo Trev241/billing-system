@@ -43,9 +43,17 @@ class Inventory extends React.Component {
     }
 
     handleInput(e, field) {
-        this.setState({
-            [field]: e.target.value
-        })
+        if(field === "name"){
+            this.setState({
+                [field]: e.target.value
+            })
+        } else {
+            if(/^[0-9]*$/.test(e.target.value)){
+                this.setState({
+                    [field]: e.target.value
+                })
+            } else{console.log("error")}
+        }
     }
 
     handleSubmit(){
