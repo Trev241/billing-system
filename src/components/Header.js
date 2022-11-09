@@ -7,10 +7,11 @@ class Header extends React.Component {
     render() {
         return (
             <div className="header">
-                <h1>e-Invoicer</h1>
+                <h1>
+                    <Link to="/">e-Invoicer</Link>
+                </h1>
                 <div>
                     <ul>
-                        <li><Link to="/">HOME</Link></li>
                         <li><Link to="/signin">SIGN IN</Link></li>
                     </ul>
                 </div>

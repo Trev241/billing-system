@@ -17,6 +17,11 @@
   align-items: center;
 }
 
+.header h1 > * {
+  color: white;
+  text-decoration: none;
+}
+
 .header div {
   display: flex;
   align-items: center;
