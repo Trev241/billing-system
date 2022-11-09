@@ -31,7 +31,7 @@ const HomePage = () => {
             <div>
             <img
                 src={require("./../assets/images/inverted.gif")}
-                alt="banner-image"
+                alt="banner"
             />
             </div>
         </div>

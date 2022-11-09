@@ -18,7 +18,7 @@ function Signup() {
     // const [matchPassword, setMatchPassword] = useState(false)
 
     const USER_REGEX = /^[A-z0-9-_]{3,23}$/
-    const EMAIL_REGEX =/^.+\@.+\..+$/
+    const EMAIL_REGEX =/^.+@.+\..+$/
     const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
     const change = {
