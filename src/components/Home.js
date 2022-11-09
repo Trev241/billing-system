@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import AuthContext from "../AuthProvider";
 import DefaultLayout from "./DefaultLayout";
@@ -10,11 +9,8 @@ const HomePage = () => {
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
 
-    const emailName = auth.email;
-
     const routeChange = () => {
-        // console.log("first");
-        let path = `signup`;
+        let path = (auth.authenticated) ? "create-invoice" : "signin";
         navigate(path);
     };
 

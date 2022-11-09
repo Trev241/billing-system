@@ -75,12 +75,12 @@ button:active {
 }
 
 div.std-container {
-    border: 2px solid #cfcfcf;
+    border: 1px solid #cfcfcf;
     padding: 20px;
 }
 
 div.std-container div.head {
-    color: #a3a3a3;
+    color: #808080;
     font-size: 2em;
     padding: 1em 0 1em 0;
 }

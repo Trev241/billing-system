@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import UserService from "../services/user.service";
 import DefaultLayout from "./DefaultLayout";
 import AuthContext from "../AuthProvider";
-
-import "./accountform.css"
+import "./signin.css"
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -29,12 +29,11 @@ const Login = () => {
         UserService.login({
             email: email,
             password: password
-        }).then(
-            response => {
-                setAuth({ email, password })
+        }).then(response => {
+                const username = response.data.username
+                setAuth({ authenticated: true, username, email, password })
                 navigate("/")
-            }
-        ).catch(
+        }).catch(
             e => {
                 console.log(e)
                 change["invalid"](true)
@@ -44,22 +43,23 @@ const Login = () => {
 
     return (
         <DefaultLayout>
-            <div className="info">
+        <div className="signin-form">
+            <div className="std-container">
                 {/* <h1>Welcome!</h1> */}
-                <form>
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="" onChange={handleChange} />
-                    <label>Password</label>
-                    <input type="password" name="password" placeholder="" onChange={handleChange} />
+                <div className="head">Welcome back!</div>
+                <div className="body">
+                    <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+                    <input type="password" name="password" placeholder="Password" onChange={handleChange} />
                     {
                         (invalid) ?
                         <p className="error-message">Invalid email or password submitted</p>
                         : <></>
                     }
-                    <input type="submit" className="submit-button" onClick={handleSubmit} value="Sign in" />
-                </form>
+                    <button onClick={handleSubmit}>Sign in</button>
+                </div>
                 <p>Not yet registered? <Link to="/signup">Sign up</Link></p>
             </div>
+        </div>
         </DefaultLayout>
     )
 }

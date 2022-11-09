@@ -1,0 +1,19 @@
+#root {
+    height: 100%;
+}
+
+.signin-form {
+    height: 100%;
+    background-image: url("./../assets/images/landing-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-form .std-container {
+    width: 400px;
+    background-color: white;
+}
