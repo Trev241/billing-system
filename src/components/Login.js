@@ -52,7 +52,7 @@ const Login = () => {
                     <input type="password" name="password" placeholder="Password" onChange={handleChange} />
                     {
                         (invalid) ?
-                        <p className="error-message">Invalid email or password submitted</p>
+                        <p style={{"color": "red"}} className="error-message">Invalid email or password submitted</p>
                         : <></>
                     }
                     <button onClick={handleSubmit}>Sign in</button>

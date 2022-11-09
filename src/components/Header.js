@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import AuthContext from "../AuthProvider";
 import './header.css'
 
 const Header = () => {
-    const { auth } = useContext(AuthContext);
+    const { auth, setAuth } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     return (
         <div className="header">
@@ -20,6 +21,12 @@ const Header = () => {
                             <li><Link to="/create-invoice">INVOICE</Link></li>
                             <li><Link to="/inventory">INVENTORY</Link></li>
                             <li><Link to="/history">HISTORY</Link></li>
+                            <li onClick={(e) => {
+                                setAuth({})
+                                navigate("/")
+                            }}>
+                                <Link>LOGOUT</Link>
+                            </li>
                             </>
                         ) : (
                             <li><Link to="/signin">SIGN IN</Link></li>
