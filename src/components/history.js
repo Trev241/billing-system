@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import TransactionService from "../services/transaction.service";
 import DefaultLayout from "./DefaultLayout";
+import List from "./List";
+import TransactionService from "../services/transaction.service";
 import "./history.css"
 
 const Transaction = ({
@@ -15,9 +16,17 @@ const Transaction = ({
             className="transaction" 
             onClick={(e) => { 
                 setExpanded(!expanded)
-                TransactionService.getDetails({id: transaction.transaction_id}).then(
-                    response => setProducts(response.data)
-                ).catch(e => console.log(e))
+                TransactionService.getDetails({id: transaction.transaction_id}).then(response => {
+                    setProducts(response.data.map(row => ({
+                        id: row.product_id,
+                        name: row.name,
+                        rate: row.p_rate,
+                        discount: row.p_discount,
+                        tax: row.p_tax,
+                        qty: row.p_qty,
+                        subtotal: Math.round(((+row.p_rate * +row.p_qty) * ((100 - +row.p_discount) / 100) * ((100 + +row.p_tax) / 100)) * 100) / 100
+                    })))
+                }).catch(e => console.log(e))
             }}
         >
             <h2>
@@ -33,9 +42,7 @@ const Transaction = ({
                     <div className="list">
                         <div></div>
                         <div>
-                            <ul>
-                                {products.map(p => <li>{p.name}</li>)}
-                            </ul>
+                            <List items={products} />
                         </div>
                     </div>
                 ) : (
@@ -67,7 +74,7 @@ const Section = ({
     )
 }
 
-function History() {
+const History = () => {
     const [transactions, setTransactions] = useState([])
 
     useEffect(() => {

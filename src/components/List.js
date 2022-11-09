@@ -75,12 +75,28 @@ class List extends React.Component {
                         prop => (
                             <td key={prop}>
                             {
-                                (prop === "name") ? ( <>
-                                    <input list="names" name={prop} value={item[prop]} onChange={(e) => this.handleInput(e, i)} />
-                                    <datalist id="names">
-                                        {this.state.options.map(option => <option key={option} value={option.name} />)}
-                                    </datalist></>
-                                ) : <input placeholder={prop.toUpperCase()} name={prop} value={item[prop]} onChange={(e) => this.handleInput(e, i)} />
+                                prop === "name" ? 
+                                (
+                                <>
+                                <input 
+                                    list="names" 
+                                    name={prop} 
+                                    value={item[prop]} 
+                                    onChange={(e) => this.handleInput(e, i)} 
+                                    disabled={!this.props.editable} 
+                                />
+                                <datalist id="names">
+                                    {this.state.options.map(option => <option key={option} value={option.name} />)}
+                                </datalist>
+                                </>
+                                ) : 
+                                <input 
+                                    placeholder={prop.toUpperCase()} 
+                                    name={prop} 
+                                    value={item[prop]} 
+                                    onChange={(e) => this.handleInput(e, i)} 
+                                    disabled={!this.props.editable} 
+                                />
                             }
                             </td>
                         )
@@ -110,9 +126,12 @@ class List extends React.Component {
                         {rows}
                     </tbody>
                 </table>
-                <div className="add-item">
-                    <button onClick={this.handleAddItem}>Add Item</button>
-                </div>
+                {
+                    this.props.editable ? 
+                    <div className="add-item">
+                        <button onClick={this.handleAddItem}>Add Item</button>
+                    </div> : <></>
+                }
             </div>
         ) 
     }

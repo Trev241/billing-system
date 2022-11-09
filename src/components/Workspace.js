@@ -152,7 +152,8 @@ const Workspace = () => {
                     <List 
                         items={items} 
                         addItem={addItem} 
-                        updateSelectedItem={updateSelectedItem} 
+                        updateSelectedItem={updateSelectedItem}
+                        editable={true} 
                     />
                 </div>
             </div>

@@ -24,6 +24,14 @@ Transaction.create = (newTransaction, products, result) => {
                     console.log("Recorded product in transaction: ", {id: res.insertId})
                 }
             )
+
+            sql.query(
+                `UPDATE Product SET stock=stock-${p.qty} WHERE product_id=${p.id}`,
+                (err, res) => {
+                    if (err) console.log("error: ", err)
+                    console.log("Deducted froms tock: ", p.qty)
+                }
+            )
         })
 
         console.log("Recorded transaction: ", { id: res.insertId, ...newTransaction })
@@ -51,20 +59,22 @@ Transaction.findAll = (result) => {
 }
 
 Transaction.findProductsInId = (id, result) => {
-    sql.query(`SELECT * FROM TransactionProduct JOIN Product ON TransactionProduct.p_id=Product.product_id WHERE TransactionProduct.t_id=${id}`, (err, res) => {
-        if (err) {
-            console.log("error", err)
-            result(err, null)
-            return
-        }
+    sql.query(
+        `SELECT * FROM TransactionProduct JOIN Product ON TransactionProduct.p_id=Product.product_id WHERE TransactionProduct.t_id=${id}`, 
+        (err, res) => {
+            if (err) {
+                console.log("error", err)
+                result(err, null)
+                return
+            }
 
-        if (res.length) {
-            console.log("Found product(s) purchased: ", res)
-            result(null, res)
-            return
-        }
+            if (res.length) {
+                console.log("Found product(s) purchased: ", res)
+                result(null, res)
+                return
+            }
 
-        result({ kind: "not_found" }, null)
+            result({ kind: "not_found" }, null)
     })
 }
 
