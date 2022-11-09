@@ -6,7 +6,7 @@ import AuthContext from "../AuthProvider";
 import DefaultLayout from "./DefaultLayout";
 import "./home.css"
 
-function HomePage() {
+const HomePage = () => {
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
 

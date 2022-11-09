@@ -10,16 +10,19 @@ import "./workspace.css"
 import { useNavigate } from "react-router-dom";
 import CustomerService from "../services/customer.service";
 
-function Workspace() {
+const Workspace = () => {
     const [items, setItems] = useState([])
     const [total, setTotal] = useState(0)
 
     const [phone, setPhone] = useState('')
     const [name, setName] = useState('')
-    const inputFields = {
-        'phone': setPhone,
-        'name': setName,
-    }
+
+    const numericIntFields = new Set(["id", "subtotal"]) 
+    const numericDecFields = new Set(["rate", "discount", "tax", "qty", "subtotal"])
+    const nonNumericFields = new Set(["name"])
+
+    const numericIntRegex = /^[0-9]*$/
+    const numericDecRegex = /^([0-9]+(\.[0-9]{0,2})?)?$/
 
     const navigate = useNavigate()
 
@@ -36,21 +39,28 @@ function Workspace() {
 
     const addItem = () => {
         let newItems = items
-        newItems = [...items, {id: '', name: '', rate: '', discount: 0, tax: 0, qty: '', subtotal: 0}]
+        newItems = [...items, {
+            id: "", 
+            name: "", 
+            rate: "", 
+            discount: 0, 
+            tax: 0, 
+            qty: "", 
+            subtotal: 0
+        }]
         setItems(newItems)
-
-        // updateTotals()
     }
 
     const updateSelectedItem = (i, field, value) => {
         // This former approach was bad, do not directly mutate state. Always make a copy of it
         // let newItemsList = items 
-
         let newItemsList = [...items]
         let item = newItemsList[i]
         
-        // Assign the new value to the designated field
-        item[field] = value
+        // Assign the new value to the designated field if validation checks have passed
+        if ((numericIntFields.has(field) && numericIntRegex.test(value)) || (numericDecFields.has(field) && numericDecRegex.test(value)) || 
+        nonNumericFields.has(field)) 
+            item[field] = value
         setItems(newItemsList)
         
         // Updating subtotal

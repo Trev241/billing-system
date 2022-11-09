@@ -9,12 +9,9 @@ class List extends React.Component {
         super(props)
 
         this.state = {
-            // Select first item in the list by default if it exists
-            selectedItem: (props.items.length > 0) ? props.items[0] : '',
             options: []
         }
 
-        this.handleSelected = this.handleSelected.bind(this)
         this.handleAddItem = this.handleAddItem.bind(this)
         this.handleInput = this.handleInput.bind(this)
     }
@@ -23,32 +20,26 @@ class List extends React.Component {
         this.props.addItem()
     }
 
-    handleSelected(e, item, i) {
-        this.props.setSelectedItem(item, i)
-    }
+    handleInput(e, i) {
+        if (e.target.name === "id") {
+            ProductService.get(e.target.value).then(
+                response => this.autofill(i, response.data)
+            ).catch(
+                e => {
+                    console.log(e)
+                    this.autofill(i, {
+                        id: "",
+                        name: "",
+                        rate: "",
+                        discount: 0,
+                        tax: 0,
+                        qty: "",
+                    })
+                }
+            )
 
-    handleInput(e, i, field) {
-        if (field === "id") {
-            if(/^[0-9]*$/.test(e.target.value)){
-                ProductService.get(e.target.value).then(
-                    response => this.autofill(i, response.data)
-                ).catch(
-                    e => {
-                        console.log(e)
-                        this.autofill(i, {
-                            id: '',
-                            name: '',
-                            rate: '',
-                            discount: 0,
-                            tax: 0,
-                            qty: '',
-                        })
-                    }
-                )
-
-                this.props.updateSelectedItem(i, "id", e.target.value)
-            } else console.log("error")
-        } else if (field === "name") {
+            this.props.updateSelectedItem(i, "id", e.target.value)
+        } else if (e.target.name === "name") {
             // Fetch products beginning with the name entered
             ProductService.getByName(e.target.value).then(
                 response => {
@@ -58,10 +49,9 @@ class List extends React.Component {
                     if (e.target.value === response.data[0].name) 
                         this.autofill(i, response.data[0])
                 }
-            ).catch(
-                e => console.log(e)
-            )
-        } else this.props.updateSelectedItem(i, field, e.target.value)
+            ).catch(e => console.log(e))
+            this.props.updateSelectedItem(i, e.target.name, e.target.value)
+        } else this.props.updateSelectedItem(i, e.target.name, e.target.value)
     }
 
     autofill(i, item) {
@@ -80,17 +70,17 @@ class List extends React.Component {
 
             rows.push(
                 // TODO: Change key for tr once rows can be reordered
-                <tr className={this.props.selectedIndex === i ? "selected" : ""} onClick={(e) => this.handleSelected(e, item, i)} key={i}>
+                <tr key={i}>
                     {Object.keys(item).map( 
                         prop => (
                             <td key={prop}>
                             {
                                 (prop === "name") ? ( <>
-                                    <input list="names" name="name" value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
+                                    <input list="names" name={prop} value={item[prop]} onChange={(e) => this.handleInput(e, i)} />
                                     <datalist id="names">
                                         {this.state.options.map(option => <option key={option} value={option.name} />)}
                                     </datalist></>
-                                ) : <input placeholder={prop.toUpperCase()} value={item[prop]} onChange={(e) => this.handleInput(e, i, prop)} />
+                                ) : <input placeholder={prop.toUpperCase()} name={prop} value={item[prop]} onChange={(e) => this.handleInput(e, i)} />
                             }
                             </td>
                         )
