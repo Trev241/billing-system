@@ -114,7 +114,6 @@ const Workspace = () => {
     const handleInput = (e, field) =>{
         if (field === 'phone') {
             if (/^[0-9]{0,10}$/.test(e.target.value)) {
-                console.log("accepted")
                 CustomerService.find({
                     phone_no: e.target.value
                 }).then(
@@ -126,7 +125,7 @@ const Workspace = () => {
                     setName('')
                 )
                 setPhone(e.target.value)
-            } else console.log("Invalid characters")
+            }
         }
 
         if (field === 'name') 

@@ -8,6 +8,9 @@ class Inventory extends React.Component {
     constructor(props) {
         super(props)
 
+        this.numericDecFields = new Set(["rate", "tax", "stock"])
+        this.numericDecRegex = /^([0-9]+(\.[0-9]{0,2})?)?$/
+
         // Some of the property names were changed for consistency with the SQL table
         this.state = {
             name: "",
@@ -42,18 +45,9 @@ class Inventory extends React.Component {
         // use regex to filter it
     }
 
-    handleInput(e, field) {
-        if(field === "name"){
-            this.setState({
-                [field]: e.target.value
-            })
-        } else {
-            if(/^[0-9]*$/.test(e.target.value)){
-                this.setState({
-                    [field]: e.target.value
-                })
-            } else{console.log("error")}
-        }
+    handleInput(e) {
+        if ((this.numericDecFields.has(e.target.name) && this.numericDecRegex.test(e.target.value)) || !this.numericDecFields.has(e.target.name))
+            this.setState({[e.target.name]: e.target.value})
     }
 
     handleSubmit(){
@@ -101,11 +95,11 @@ class Inventory extends React.Component {
                     <div className="new-product-box-border">
                         <div className="new-product-box-top-bar">Expanding inventory?</div>
                         <div className="new-product-box-content">
-                            <input className="name-inputbox" value={this.state.name} onChange={(e)=>this.handleInput(e,"name")} type="text" placeholder="Product Name" id="productname" />
-                            <input className="price-inputbox" value={this.state.price} onChange={(e)=>this.handleInput(e,"rate")} type="text" placeholder="Product Rate" id="productprice" />
-                            <input className="tax-inputbox" value={this.state.tax} onChange={(e)=>this.handleInput(e,"tax")} type="text" placeholder="Product Tax" id="producttax" />
-                            <input className="quantity-inputbox" value={this.state.quantity} onChange={(e)=>this.handleInput(e,"stock")} type="text" placeholder="Product Stock" id="productquantity" />
-                            <button  onClick={this.handleSubmit} className="add-button">Confirm</button>
+                            <input name="name" value={this.state.name} onChange={this.handleInput} type="text" placeholder="Product Name" />
+                            <input name="rate" value={this.state.rate} onChange={this.handleInput} type="text" placeholder="Product Rate" />
+                            <input name="tax" value={this.state.tax} onChange={this.handleInput} type="text" placeholder="Product Tax" />
+                            <input name="stock" value={this.state.stock} onChange={this.handleInput} type="text" placeholder="Product Stock" />
+                            <button onClick={this.handleSubmit} className="add-button">Confirm</button>
                         </div>
                     </div>  
                 </div>
