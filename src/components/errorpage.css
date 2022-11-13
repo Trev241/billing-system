@@ -1,4 +1,4 @@
-.error {
+.missing-page {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -8,11 +8,11 @@
     text-align: center;
 }
 
-.error h1 {
+.missing-page h1 {
     font-size: 50px;
     padding: 20px 0 20px 0;
 }
 
-.error .details {
+.missing-page .details {
     font-family: 'Courier New', Courier, monospace;
 }

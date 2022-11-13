@@ -19,6 +19,8 @@ class Inventory extends React.Component {
             stock: "",
             products: [],
             searchQuery: "",
+            warning: "Could not add product to inventory because it was a possible duplicate",
+            warn: false,
         }
 
         // Fetching inventory from databse. Using %25 as the URL escape code for % which itself is a wildcard for all products

@@ -9,14 +9,14 @@ import "./signin.css"
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [invalid, setInvalid] = useState(false)
+    const [error, setError] = useState(false)
     const { setAuth } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const change = {
         "email": setEmail,
         "password": setPassword,
-        "invalid": setInvalid
+        "invalid": setError
     }
 
     const handleChange = (e) => {
@@ -45,18 +45,18 @@ const Login = () => {
         <DefaultLayout>
         <div className="signin-form">
             <div className="std-container">
-                {/* <h1>Welcome!</h1> */}
                 <div className="head">Welcome back!</div>
                 <div className="body">
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} />
                     <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-                    {
-                        (invalid) ?
-                        <p style={{"color": "red"}} className="error-message">Invalid email or password submitted</p>
-                        : <></>
-                    }
                     <button onClick={handleSubmit}>Sign in</button>
                 </div>
+                {/* <h1>Welcome!</h1> */}
+                {
+                    error  
+                    ? <div className="error">Invalid email or password submitted</div>
+                    : <></>
+                }
                 <p>Not yet registered? <Link to="/signup">Sign up</Link></p>
             </div>
         </div>

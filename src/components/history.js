@@ -83,7 +83,7 @@ const History = () => {
         ).catch(
             e => console.log(e)
         )
-    })
+    }, [])
 
     let history = {}
     transactions.forEach(t => {

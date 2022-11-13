@@ -51,6 +51,15 @@ class List extends React.Component {
                 }
             ).catch(e => console.log(e))
             this.props.updateSelectedItem(i, e.target.name, e.target.value)
+        } else if (e.target.name === "qty") {
+            const value = e.target.value
+            // Verify Stock
+            ProductService.get(this.props.items[i].id).then(response => {
+                this.props.updateSelectedItem(i, e.target.name, Math.min(value, response.data.stock))
+            }).catch(error => {
+                console.log(error)
+                this.props.updateSelectedItem(i, e.target.name, value)
+            })
         } else this.props.updateSelectedItem(i, e.target.name, e.target.value)
     }
 
@@ -60,6 +69,7 @@ class List extends React.Component {
         this.props.updateSelectedItem(i, "rate", item.rate)
         this.props.updateSelectedItem(i, "discount", 0)
         this.props.updateSelectedItem(i, "tax", item.tax)
+        this.props.updateSelectedItem(i, "qty", Math.min(this.props.items[i].qty, item.stock))
     }
 
     render () {

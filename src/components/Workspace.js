@@ -9,6 +9,7 @@ import DefaultLayout from "./DefaultLayout";
 import "./workspace.css"
 import { useNavigate } from "react-router-dom";
 import CustomerService from "../services/customer.service";
+import ProductService from "../services/product.service";
 
 const Workspace = () => {
     const [items, setItems] = useState([])
@@ -16,6 +17,9 @@ const Workspace = () => {
 
     const [phone, setPhone] = useState('')
     const [name, setName] = useState('')
+
+    const [warning, setWarning] = useState("Something went wrong!")
+    const [warn, setWarn] = useState(false)
 
     const numericIntFields = new Set(["id", "subtotal"]) 
     const numericDecFields = new Set(["rate", "discount", "tax", "qty", "subtotal"])
@@ -77,38 +81,47 @@ const Workspace = () => {
     const handleCheckout = () => {
         CustomerService.find({
             phone_no: phone
-        }).then(
-            response => {
-                console.log("Customer already exists in database")
-            }
-        ).catch(
-            e => {
-                console.log("Could not find customer in database. Creating new entry")
-                CustomerService.create({
-                    phone_no: phone,
-                    name: name,
-                    email: null,
-                }).then(
-                    response => console.log("Customer added")
-                ).catch(
+        }).then(response => {
+            console.log("Customer already exists in database")
+        }).catch(e => {
+            console.log("Could not find customer in database. Creating new entry")
+            CustomerService.create({
+                phone_no: phone,
+                name: name,
+                email: null,
+            }).then(
+                response => console.log("Customer added")
+            ).catch(
+                e => console.log(e)
+            )
+        }).finally(() => {
+            let valid = true
+
+            // Verifying stock
+            items.forEach(item => {
+                    ProductService.get(item.id).then(
+                    response => (+item.qty <= response.data.stock) && valid
+                )
+            })
+
+            if (valid) {
+                TransactionService.create({
+                    date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                    customer_pno: phone,
+                    balance: total,
+                    products: items
+                }).then(response => {
+                    alert('Transaction recorded')
+                }).catch(
                     e => console.log(e)
                 )
-            }
-        )
 
-        TransactionService.create({
-            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
-            customer_pno: phone,
-            balance: total,
-            products: items
-        }).then(
-            response => {
-                // alert('Transaction recorded')
+                navigate("/history")
+            } else {
+                setWarning("Insufficient stock for one or more item(s)!")
+                setWarn(true)
             }
-        ).catch(
-            e => console.log(e)
-        )
-        navigate("/history")
+        })   
     }
 
     const handleInput = (e, field) =>{
@@ -134,6 +147,11 @@ const Workspace = () => {
 
     return (
         <DefaultLayout>
+            {   
+                warn 
+                ? <div className="warning">{warning}</div> 
+                : <></>
+            }
             <div className="workspace-container workspace-grid">
                 <div>
                     <div className="std-container">

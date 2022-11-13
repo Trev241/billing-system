@@ -96,3 +96,19 @@ div.std-container div.body * {
     margin: 1.5em 0 1.5em 0;
     padding: 1em 0 1em 0;
 }
+
+div.warning {
+    background-color: #ffa60030;
+    border: 3px solid orange;
+    
+    margin: 2em;
+    padding: 2em;
+}
+
+div.error {
+    background-color: #ff000030;
+    border: 3px solid red;
+    
+    margin: 2em;
+    padding: 2em;
+}
