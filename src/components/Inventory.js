@@ -86,6 +86,14 @@ class Inventory extends React.Component {
             
             }).catch(e => console.log(e))
 
+            // Reset fields
+            this.setState({
+                name: "",
+                rate: "",
+                tax: "",
+                stock: "",
+            })
+
         } else alert("Cannot add duplicates")
     }
 

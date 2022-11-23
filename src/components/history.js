@@ -53,10 +53,12 @@ const Transaction = ({
     )
 }
 
+// Each section that contains transactions for a certain date
 const Section = ({
     date,
     transactions
 }) => {
+    // Switch
     const [visible, setVisible] = useState(true)
 
     return (
@@ -74,9 +76,12 @@ const Section = ({
     )
 }
 
+// History
 const History = () => {
+    // Stores all transactions to be displayed
     const [transactions, setTransactions] = useState([])
 
+    // Fetch all transactions when the page is loaded for the first time
     useEffect(() => {
         TransactionService.getAll().then(
             response => setTransactions(response.data.reverse())
@@ -85,16 +90,19 @@ const History = () => {
         )
     }, [])
 
+    // Grouping by dates
     let history = {}
     transactions.forEach(t => {
         let date = t.date.slice(0, 10)
         history[date] = (date in history) ? [...history[date], t] : [t]
     })
 
+    // HTML
     return (
         <DefaultLayout>
         <div className="history">
             {Object.keys(history).map(date => {
+                // Repeat a section for every date
                 return <Section date={date} transactions={history[date]} />
             })}
         </div>
